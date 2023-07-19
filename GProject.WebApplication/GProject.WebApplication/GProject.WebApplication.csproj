@@ -41,6 +41,7 @@
 		</PackageReference>
 		<PackageReference Include="Microsoft.NET.Sdk.Razor" Version="3.1.32" />
 		<PackageReference Include="Microsoft.Owin.Security.Google" Version="4.2.2" />
+		<PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="6.0.15" />
 		<PackageReference Include="Newtonsoft.Json" Version="13.0.2" />
 		<PackageReference Include="Quartz" Version="3.6.2" />
 		<PackageReference Include="Quartz.AspNetCore" Version="3.6.2" />

@@ -149,17 +149,20 @@
                                         <a href="/">Trang chủ</a>
                                     </li>
                                     <li>
-                                        <a href="/gioi-thieu.html">Về chúng tôi</a>
+                                        <a href="/Order/ViewOrderCustomer">Đơn hàng</a>
                                     </li>
                                     <li>
-                                        <a asp-controller="Product" asp-action="Index">Shop</a>
+                                        <a href="/Product/ShowDetailMyCart">Giỏ hàng</a>
                                     </li>
-                                    <li>
-                                        <a href="/page/huong-dan-mua-hang">Hướng dẫn mua hàng</a>
-                                    </li>
-                                    <li>
-                                        <a href="/Blogs.html">Blog</a>
-                                    </li>
+                                    @if(user != null)
+                                    {
+                                        <li>
+                                            <a href="/Thong-tin-khach-hang.html">Thông tin cá nhân</a>
+                                        </li>
+                                        <li>
+                                            <a href="/DeliveryAddress/CreateAddress">Địa chỉ đặt hàng</a>
+                                        </li>
+                                    }
                                     <li>
                                         <a href="/lien-he.html">Liên hệ</a>
                                     </li>

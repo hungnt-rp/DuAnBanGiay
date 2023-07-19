@@ -70,8 +70,9 @@ GProject.Data.DomainClass.Brand, EvaluateCommentDTO, decimal, int, Customer>
     var idproduct = ViewBag.productId;
 }
 
-
-
+<link rel="stylesheet" type="text/css" href="/UserContent/styles/categories_styles.css">
+<link href="/css/product_details.css" rel="stylesheet">
+<link href="/AdminContent/css/style.min.css" rel="stylesheet">
 <div style="margin-top: 200px;">
 
     @if (@ViewData["Mess"] != null)
@@ -353,11 +354,9 @@ GProject.Data.DomainClass.Brand, EvaluateCommentDTO, decimal, int, Customer>
                                                 <div class="col-sm-12">
                                                     <select id="selectDeliveryAddress" class="form-select">
                                                     </select>
-                                                    <button style="margin-top: 5px;" class="btn btn-success "
-                                                            onclick="OpenDeliveryAddress(); return false;" data-toggle="ajax-modal"
-                                                            data-target="#showDataDeliveryAddress" data-url="/DeliveryAddress/Index">
+                                                    <a style="margin-top: 5px;" class="btn btn-success" href="/DeliveryAddress/CreateAddress">
                                                         Thêm
-                                                    </button>
+                                                    </a>
                                                 </div>
                                             </div>
                                         </div>

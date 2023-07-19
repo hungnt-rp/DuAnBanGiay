@@ -20,7 +20,7 @@ namespace GProject.Data.Context
             //@"Data Source=LAPTOP-2GTIBL55\SQLEXPRESS;Initial Catalog=ABC;Integrated Security=True"
 
 
-            optionsBuilder.UseSqlServer(@"Data Source=DESKTOP-CAAAC2V;Initial Catalog=DB_Du_An;Integrated Security=True");
+            optionsBuilder.UseSqlServer(@"Data Source=HP\SQLEXPRESS;Initial Catalog=DB_Du_An;Integrated Security=True");
 
 
 
