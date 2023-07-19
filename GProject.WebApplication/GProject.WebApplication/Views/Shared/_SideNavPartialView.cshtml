@@ -1,0 +1,116 @@
+﻿@using Microsoft.AspNetCore.Mvc;
+@using GProject.WebApplication.Helpers;
+@{
+    var user = GProject.WebApplication.Helpers.Commons.GetObjectFromJson<GProject.Data.DomainClass.Employee>(Context.Session, "userLogin");
+}
+<div class="side-nav">
+    <div class="side-nav-inner">
+        <ul class="side-nav-menu scrollable">
+            <li class="nav-item">
+                <a class="dropdown-toggle" href="/Dashboard/Index">
+                    <span class="icon-holder">
+                        <i class="anticon anticon-dashboard"></i>
+                    </span>
+                    <span class="title">Thống kê</span>
+                    <span class="arrow">
+                        <i class="arrow-icon"></i>
+                    </span>
+                </a>
+
+            </li>
+            <li class="nav-item">
+                <a class="dropdown-toggle" href="/Order/Index">
+                    <span class="icon-holder">
+                        <i class="anticon anticon-file"></i>
+                    </span>
+                    <span class="title">Cập nhập đơn hàng</span>
+                </a>
+            </li>
+            <li class="nav-item">
+                <a href="/Invoice/Index">
+                    <span class="icon-holder">
+                        <i class="anticon anticon-file"></i>
+                    </span>
+                    <span class="title">Quản lý hóa đơn</span>
+                </a>
+            </li>
+            <li class="nav-item dropdown">
+                <a class="dropdown-toggle" href="javascript:void(0);">
+                    <span class="icon-holder">
+                        <i class="anticon anticon-form"></i>
+                    </span>
+                    <span class="title">Quản lý sản phẩm</span>
+                    <span class="arrow">
+                        <i class="arrow-icon"></i>
+                    </span>
+                </a>
+                <ul class="dropdown-menu">
+                    <li>
+                        <a href="/Category/Index">Loại giày dép</a>
+                    </li>
+                    <li>
+                        <a href="/Color/Index">Màu sắc</a>
+                    </li>
+                    <li>
+                        <a href="/Size/Index">Size</a>
+                    </li>
+                    <li>
+                        <a href="/Brand/Index">Thương hiệu</a>
+                    </li>
+                    <li>
+                        <a href="/ProductMGR/Index">Chi tiết sản phẩm</a>
+                    </li>
+                </ul>
+            </li>
+            @if (user.Position == GProject.Data.Enums.EmployeePosition.Manager)
+            {
+                <li class="nav-item dropdown">
+                    <a class="dropdown-toggle" href="javascript:void(0);">
+                        <span class="icon-holder">
+                            <i class="anticon anticon-table"></i>
+                        </span>
+                        <span class="title">Ưu đãi sản phẩm</span>
+                        <span class="arrow">
+                            <i class="arrow-icon"></i>
+                        </span>
+                    </a>
+                    <ul class="dropdown-menu">
+                        <li>
+                            <a href="/Promotion/Index">Giảm giá sản phẩm</a>
+                        </li>
+                        <li>
+                            <a href="/Voucher/Index">Áp dụng Voucher </a>
+                        </li>
+                    </ul>
+                </li>
+            }
+            <li class="nav-item">
+                <a class="dropdown-toggle" href="/Customer/Index">
+                    <span class="icon-holder">
+                        <i class="anticon anticon-file"></i>
+                    </span>
+                    <span class="title">Quản lý khách hàng</span>
+                </a>
+            </li>
+            @if (user.Position == GProject.Data.Enums.EmployeePosition.Manager)
+            {
+                <li class="nav-item">
+                    <a class="dropdown-toggle" href="/Employee/Index">
+                        <span class="icon-holder">
+                            <i class="anticon anticon-file"></i>
+                        </span>
+                        <span class="title">Quản lý nhân viên</span>
+                    </a>
+                </li>
+            }
+            <li class="nav-item">
+                <a class="dropdown-toggle" href="/Evaluate/index">
+                    <span class="icon-holder">
+                        <i class="anticon anticon-file"></i>
+                    </span>
+                    <span class="title">Review sản phẩm</span>
+                </a>
+            </li>
+        </ul>
+    </div>
+</div>
