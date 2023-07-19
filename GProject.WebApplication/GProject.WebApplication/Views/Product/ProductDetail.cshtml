@@ -72,11 +72,6 @@ GProject.Data.DomainClass.Brand, EvaluateCommentDTO, decimal, int, Customer>
 
 
 
-<link rel="stylesheet" type="text/css" href="/UserContent/styles/categories_styles.css">
-<link href="/css/product_details.css" rel="stylesheet">
-<link href="/AdminContent/css/style.min.css" rel="stylesheet">
-
-
 <div style="margin-top: 200px;">
 
     @if (@ViewData["Mess"] != null)
@@ -266,50 +261,7 @@ GProject.Data.DomainClass.Brand, EvaluateCommentDTO, decimal, int, Customer>
             <br>
             <p>@Model.Item1.Description.NullToString()</p>
             <!-- Danh sách sản phẩm liên quan-->
-            <div>
-                @{
-                    var lstSimilarProduct = lstProducts.Where(c => c.ProductType.Contains(Model.Item1.ProductType) && c.Id !=
-                    Model.Item1.Id).ToList();
-                }
-                @if (lstSimilarProduct.Count() > 0)
-                {
-                    <hr>
-                    <div class="p-1 text-center">
-                        <h2>Sản phẩm liên quan</h2>
-                    </div>
-                    <div class="product-grid" style="height:450px;">
-                        @foreach (var x in lstSimilarProduct)
-                        {
-                            <div class="product-item men">
-                                <div class="product discount product_filter">
-                                    <div class="image">
-
-                                        @{
-                                            string image = lstProductvariation.Where(c => c.ProductId == x.Id &&
-                                            !string.IsNullOrEmpty(c.Image)).Select(c => c.Image).FirstOrDefault().NullToString();
-                                        }
-                                        <img class="image__img" src="~/images/@image" alt="Bricks">
-                                        <div class="image__overlay image__overlay--primary">
-                                            <p class="image__description">Mua ngay</p>
-                                            <a class="btn btn-primary" href="/productdetail/@x.Id" style="border-radius:10px;">
-                                                <i class="fa fa-shopping-cart" style="margin-right:10px;"></i>Thêm vào giỏ hàng
-                                            </a>
-                                        </div>
-                                    </div>
-                                    <div class="card-body">
-                                        <h4 class="card-title text-center" style="color:red;">
-                                            @string.Format("{0:0,0} VNĐ",Convert.ToDouble(x.Price.ToString()))
-                                        </h4>
-                                        <div>
-                                            <h4 class="card-title text-center">@x.Name</h4>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        }
-                    </div>
-                }
-            </div>
+        
             <!-- Bình luận, đánh giá-->
             <div class="p-1 text-left" style="background-color: #CCCCCC; margin-top: 30px;">
                 <h4><i class="fa fa-comments" style="margin:5px 10px;"></i>Đánh giá sản phẩm</h4>

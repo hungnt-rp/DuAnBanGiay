@@ -1,4 +1,10 @@
-﻿<!DOCTYPE html>
+﻿@using GProject.Data.DomainClass;
+@using Microsoft.AspNetCore.Mvc;
+@using GProject.WebApplication.Helpers;
+@{
+    var user = GProject.WebApplication.Helpers.Commons.GetObjectFromJson<GProject.Data.DomainClass.Customer>(Context.Session, "userLogin");
+}
+<!DOCTYPE html>
 <html lang="zxx">
 
 <head>
@@ -10,7 +16,7 @@
     <meta name="description" content="">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <!-- Favicon -->
-    <link rel="shortcut icon" type="image/x-icon" href="~/assets/images/favicon.ico" />
+    <link rel="shortcut icon" type="image/x-icon" href="~/Adminassets/images/logo/favicon.png" />
 
     <!-- CSS
     ============================================ -->
@@ -27,9 +33,12 @@
 
     <!-- Style CSS -->
     <link rel="stylesheet" href="~/assets/css/style.css">
+
+    <script src="//code.jquery.com/jquery-1.11.1.min.js"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.2/css/all.min.css">
-
-
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/sweetalert/1.1.3/sweetalert.min.css"><!--Thêm1-->
+    <script src="https://maps.googleapis.com/maps/api/js?libraries=places&key=AIzaSyCKjLTXdq6Db3Xit_pW_GK4EXuPRtnod4o"></script>
+    <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
 </head>
 
 <body>
@@ -58,16 +67,6 @@
     ============================================ -->
     <!-- Global Vendor, plugins JS -->
     <!-- Vendor JS -->
-    <script src="~/lib/jquery/dist/jquery.min.js"></script>
-    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
-
-    <script src="~/plugins/plugins_js/custom.js"></script>
-    <script src="~/plugins/plugins_js/easing.js"></script>
-    <script src="~/plugins/plugins_js/isotope.pkgd.min.js"></script>
-    <script src="~/plugins/plugins_js/owl.carousel.js"></script>
-    <script src="~/js/site.js" asp-append-version="true"></script>
-    <script src="~/js/js_deliveryaddress.js" asp-append-version="true"></script>
-
     <script src="~/assets/js/vendor/bootstrap.bundle.min.js"></script>
     <script src="~/assets/js/vendor/jquery-3.5.1.min.js"></script>
     <script src="~/assets/js/vendor/jquery-migrate-3.3.0.min.js"></script>
@@ -81,6 +80,14 @@
     <script src="~/assets/js/plugins/jquery.nice-select.js"></script>
     <script src="~/assets/js/plugins/parallax.min.js"></script>
     <script src="~/assets/js/plugins/jquery.magnific-popup.min.js"></script>
+
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    <script src="~/plugins/plugins_js/custom.js"></script>
+    <script src="~/plugins/plugins_js/easing.js"></script>
+    <script src="~/plugins/plugins_js/isotope.pkgd.min.js"></script>
+    <script src="~/plugins/plugins_js/owl.carousel.js"></script>
+    <script src="~/js/site.js" asp-append-version="true"></script>
+    <script src="~/js/js_deliveryaddress.js" asp-append-version="true"></script>
 
     <!--Main JS (Common Activation Codes)-->
     <script src="~/assets/js/main.js"></script>
