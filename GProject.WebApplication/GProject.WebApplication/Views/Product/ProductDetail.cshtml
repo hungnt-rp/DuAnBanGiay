@@ -132,11 +132,9 @@ GProject.Data.DomainClass.Brand, EvaluateCommentDTO, decimal, int, Customer>
                                             }
                                         </div>
                                         <div class="price-box pb-1">
-                                            <span id="mQuantityInstock" value="">
-                                                Còn :
-                                                @Model.Item2.Sum(c => c.QuantityInStock) sản phẩm
-
-                                            </span>
+                                            <span class="new-price">Còn :</span>
+                                            <span id="mQuantityInstock" value="">@Model.Item2.Sum(c => c.QuantityInStock) </span>
+                                            <span class="new-price">sản phẩm</span>
                                         </div>
                                         <div class="price-box pb-1">
                                             @{
@@ -211,76 +209,25 @@ GProject.Data.DomainClass.Brand, EvaluateCommentDTO, decimal, int, Customer>
                                                 }
                                             }
                                         </h4>
-                                        <ul class="quantity-with-btn pb-7">
+                                        <ul class="quantity-with-btn pb-7" style="margin-top: 15px;margin-left: -35px;">
                                             <li class="quantity">
                                                 <div class="cart-plus-minus">
-                                                    <input class="cart-plus-minus-box" value="1" type="text">
+                                                    <input class="input-group-field cart-plus-minus-box col-md-5 quantity" type="text" type="number" id="quantity"
+                                                           name="quantity" value="0">
                                                 </div>
                                             </li>
                                             <li class="add-to-cart">
-                                                <a class="btn btn-custom-size lg-size btn-primary btn-secondary-hover rounded-0" href="cart.html">Add to cart</a>
+                                                <a class="btn btn-custom-size lg-size btn-primary btn-secondary-hover rounded-0" onclick="BuyNow()">MUA NGAY</a>
                                             </li>
                                             <li class="wishlist-btn-wrap">
-                                                <a class="btn rounded-0" href="wishlist.html">
-                                                    <i class="pe-7s-like"></i>
+                                                <a class="btn rounded-0" onclick="AddToCart()">
+                                                    <i class="pe-7s-cart"></i>
                                                 </a>
                                             </li>
                                         </ul>
                                         <div class="product-category text-matterhorn pb-2">
-                                            <span class="title">Categories :</span>
-                                            <ul>
-                                                <li>
-                                                    <a href="javascript:void(0)">Natural,</a>
-                                                </li>
-                                                <li>
-                                                    <a href="javascript:void(0)">Organic,</a>
-                                                </li>
-                                                <li>
-                                                    <a href="javascript:void(0)">Beautiful,</a>
-                                                </li>
-                                                <li>
-                                                    <a href="javascript:void(0)">Organic Food</a>
-                                                </li>
-                                            </ul>
-                                        </div>
-                                        <div class="product-category product-tags text-matterhorn pb-4">
-                                            <span class="title">Product Tags :</span>
-                                            <ul>
-                                                <li>
-                                                    <a href="javascript:void(0)">Organic,</a>
-                                                </li>
-                                                <li>
-                                                    <a href="javascript:void(0)">Vegetable,</a>
-                                                </li>
-                                                <li>
-                                                    <a href="javascript:void(0)">Fruits</a>
-                                                </li>
-                                            </ul>
-                                        </div>
-                                        <div class="social-link align-items-center pb-lg-8">
-                                            <span class="title pe-3">Share:</span>
-                                            <ul>
-                                                <li>
-                                                    <a href="javascript:void(0)">
-                                                        <i class="fa fa-pinterest-p"></i>
-                                                    </a>
-                                                </li>
-                                                <li>
-                                                    <a href="javascript:void(0)">
-                                                        <i class="fa fa-twitter"></i>
-                                                    </a>
-                                                </li>
-                                                <li>
-                                                    <a href="javascript:void(0)">
-                                                        <i class="fa fa-tumblr"></i>
-                                                    </a>
-                                                </li>
-                                                <li>
-                                                    <a href="javascript:void(0)">
-                                                        <i class="fa fa-dribbble"></i>
-                                                    </a>
-                                                </li>
-                                            </ul>
+                                            <span style="font-size:25px">Thành tiền: </span>
+                                            <span style="color:red;font-size:25px" id="totalMoney" name="totalMoney"> 0 đ</span>
                                         </div>
                                     </div>
                                 </div>
@@ -288,18 +235,16 @@ GProject.Data.DomainClass.Brand, EvaluateCommentDTO, decimal, int, Customer>
                             <div class="col-12 order-lg-2 order-1 pt-10 pt-lg-0">
                                 <div class="swiper-container single-product-thumbs">
                                     <div class="swiper-wrapper">
-                                        <a href="javascript:void(0)" class="swiper-slide">
-                                            <img class="img-full" src="assets/images/product/large-size/2-1-555x645.jpg" alt="Product Thumnail">
-                                        </a>
-                                        <a href="javascript:void(0)" class="swiper-slide">
-                                            <img class="img-full" src="assets/images/product/large-size/2-2-555x645.jpg" alt="Product Thumnail">
-                                        </a>
-                                        <a href="javascript:void(0)" class="swiper-slide">
-                                            <img class="img-full" src="assets/images/product/large-size/2-3-555x645.jpg" alt="Product Thumnail">
-                                        </a>
-                                        <a href="javascript:void(0)" class="swiper-slide">
-                                            <img class="img-full" src="assets/images/product/large-size/2-4-555x645.jpg" alt="Product Thumnail">
-                                        </a>
+                                        @{
+                                            foreach (var item in Model.Item2.Select(c => c.ColorId).Distinct().ToList())
+                                            {
+                                                string im = Model.Item2.Where(c => c.ColorId == item && c.ProductId == Model.Item1.Id).Select(c => c.Image).FirstOrDefault().NullToString();
+                                                <a onclick="changeImageProd('@im')" class="swiper-slide">
+                                                    <img class="img-full" src="~/images/@im" alt="Product Thumnail" style="width: 150px;height: 180px;">
+                                                </a>
+                                            }
+                                        }
+                                        
                                     </div>
                                 </div>
                             </div>
