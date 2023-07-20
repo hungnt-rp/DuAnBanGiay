@@ -73,7 +73,7 @@ GProject.Data.DomainClass.Brand, EvaluateCommentDTO, decimal, int, Customer>
 <link rel="stylesheet" type="text/css" href="/UserContent/styles/categories_styles.css">
 <link href="/css/product_details.css" rel="stylesheet">
 <link href="/AdminContent/css/style.min.css" rel="stylesheet">
-<div style="margin-top: 200px;">
+<div style="margin-top: 10px;">
 
     @if (@ViewData["Mess"] != null)
     {
@@ -86,183 +86,230 @@ GProject.Data.DomainClass.Brand, EvaluateCommentDTO, decimal, int, Customer>
     @if (Model != null)
     {
         <div id="motor-detail" class="container">
-            <div class="row overview">
-                <div class="col-12 col-lg-7 overview-left container-fliud">
-                    <div class="characteristics-image text-center">
-                        @{
-                            string img = Model.Item2.Where(c => c.ProductId == Model.Item1.Id).Select(c =>
-                            c.Image).FirstOrDefault();
-                        }
-                        <img id="imgProd" style="width:650px;height:500px;" src="~/images/@img" alt="">
-                    </div>
-                    <div class="row">
-                        <fieldset>
-
-                            <hr>
-                            @{
-                                foreach (var item in Model.Item2.Select(c => c.ColorId).Distinct().ToList())
-                                {
-                                    string im = Model.Item2.Where(c => c.ColorId == item && c.ProductId == Model.Item1.Id).Select(c =>
-                                    c.Image).FirstOrDefault().NullToString();
-                                    <button type="button" onclick="changeImageProd('@im')">
-                                        <img style="width:130px; height:160px;"
-                                         class="img-thumbnail" src="~/images/@im" alt="">
-                                    </button>
-                                }
-                            }
-                        </fieldset>
-                    </div>
-                </div>
-                <div class="col-12 col-lg-5 overview-right">
-                    <form id="formdata" class="form-horizontal d-block">
-                        <input id="cTotalMoney" name="cTotalMoney" hidden="hidden" />
-                        <input id="cColor" name="cColor" hidden="hidden" />
-                        <input id="cSize" name="cSize" hidden="hidden" />
-                        <input id="cQuantity" name="cQuantity" hidden="hidden" />
-                        <input id="cPrice" name="cPrice" hidden="hidden" />
-                        <input id="cProductId" name="cProductId" value="@Model.Item1.Id.ToString()" hidden="hidden" />
-
-                        <h2 class="d-none d-lg-block" style="color:Black">@Model.Item1.Name</h2>
-
-                        <div class="row">
-                            <h3 class="d-none d-lg-block" style="color:Red">
-                                Giá hiện tại: @string.Format("{0:0,0}", price) đ
-                                @if (existProdPromotion != null)
-                                {
-                                    <del style="    color: gray; font-size: 18px;">@string.Format("{0:0,0}", existProdPromotion.PromotionDetail.InitialPrice) đ </del>
-                                }
-                            </h3>
-
-                        </div>
-                        <div class="overview-detail mb-3" style="min-height: 0">
-                            <div class="characteristics-desc">
-                                <h4>Nhãn hiệu: @Model.Item3.Name</h4>
-                                @{
-                                    string productType = "";
-                                    foreach (var item in Model.Item1.ProductType.Split(',').Distinct().ToList())
-                                    {
-                                        switch (item)
-                                        {
-                                            case "0":
-                                                productType += "Sản phẩm bình thường";
-                                                break;
-                                            case "1":
-                                                productType += "Sản phẩm mới";
-                                                break;
-                                            case "2":
-                                                productType += "Sản phẩm nổi bật";
-                                                break;
-                                            case "3":
-                                                productType += "Sản phẩm được yêu thích";
-                                                break;
-                                            case "4":
-                                                productType += "Sản phẩm khuyến mại";
-                                                break;
-                                            default:
-                                                break;
-                                        }
-                                    }
-                                }
-                                <h4>Loại sản phẩm: @productType</h4>
-                                <h4>Lượt xem: @Model.Item1.ViewCount <i class="fa fa-eye"></i></h4>
-
-                                <h4>
-                                    Số lượng còn lại:
-                                    <span id="mQuantityInstock" value="">
-                                        @Model.Item2.Sum(c => c.QuantityInStock)
-
-                                    </span>
-                                </h4>
-                                <h4 class="cl-class">
-                                    Màu sắc:
-                                    @{
-                                        foreach (var item in Model.Item2.Select(c => c.ColorId).Distinct().ToList())
-                                        {
-                                            string im = Model.Item2.Where(c => c.ColorId == item && c.ProductId == Model.Item1.Id).Select(c => c.Image).FirstOrDefault().NullToString();
-
-                                            var dataColor = lstColor.Where(x => x.Status == 1 && x.Id == item).FirstOrDefault();
-
-                                            @if (dataColor != null)
-                                            {
-                                                <button type="button" value="@item" id="btnColor" onclick="changeImageProd('@im')" style="padding: 0 5px 0 5px;" href="/productdetail/@item/@Model.Item1.Id">
-                                                    @(dataColor.Name.NullToString())
-                                                </button>
+            <!--Thay đổi chi tiết sản phẩm bên dưới (trên br và dưới motor-detail) -->
+            <div class="container">
+                <!-- bắt đầu đây-->
+                <div class="row">
+                    <div class="col-lg-6">
+                        <div class="single-product-img h-100">
+                            <div class="swiper-container single-product-slider">
+                                <div class="swiper-wrapper">
+                                    <div class="swiper-slide">
+                                        <a href="assets/images/product/large-size/2-1-555x645.jpg" class="single-img gallery-popup">
+                                            @{
+                                                string img = Model.Item2.Where(c => c.ProductId == Model.Item1.Id).Select(c =>
+                                                c.Image).FirstOrDefault();
                                             }
-                                        }
-                                    }
-                                </h4>
-                                <h4 class="si-class">
-                                    Size:
-                                    @{
-                                        foreach (var item in Model.Item2.Select(c => c.SizeId).Distinct().ToList())
-                                        {
-                                            var dataSize = lstSize.Where(x => x.Status == 1 && x.Id == item).FirstOrDefault();
-                                            var dataProductVariationSize = lstProductvariation.Where(x => x.ProductId == idproduct && x.SizeId == item && x.QuantityInStock > 0).FirstOrDefault();
-                                            @if (dataSize != null && dataProductVariationSize != null)
-                                            {
-                                                <button type="button" value="@item" id="btnSize" style="padding: 0 9px 0 9px;">
-                                                    @(dataSize.Code.NullToString())
-                                                </button>
-                                            }
+                                            <img id="imgProd" style="width:550px;height:560px;" class="img-full" src="~/images/@img" alt="Product Image1">
 
-                                        }
-                                    }
-                                </h4>
-
-                                <div class="input-group plus-minus-input row">
-                                    <h4 class="col-md-4">Số lượng:</h4>
-                                    <div class="col-md-8 justify-content-center">
-                                        <div class="row">
-                                            <div class="input-group-button col-md-3 mt-2">
-                                                <button type="button" class="btn-warning hollow circle" data-quantity="minus"
-                                                        data-field="quantity" style="margin-right:5px;">
-                                                    <i class="fa fa-minus" aria-hidden="true"></i>
-                                                </button>
-                                            </div>
-                                            <input class="input-group-field form-control col-md-5 quantity" type="number" id="quantity"
-                                                   name="quantity" value="0" style="width:100px;">
-                                            <div class="input-group-button col-md-3 mt-2">
-                                                <button type="button" class="btn-info hollow circle" data-quantity="plus"
-                                                        data-field="quantity" style="margin-left:5px;">
-                                                    <i class="fa fa-plus" aria-hidden="true"></i>
-                                                </button>
-                                            </div>
-                                        </div>
-
+                                        </a>
                                     </div>
+                                </div>
+                                <!-- Add Pagination -->
+                                <div class="swiper-pagination"></div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-6">
+                        <div class="product-thumb-with-content row">
+                            <form id="formdata">
+                                <input id="cTotalMoney" name="cTotalMoney" hidden="hidden" />
+                                <input id="cColor" name="cColor" hidden="hidden" />
+                                <input id="cSize" name="cSize" hidden="hidden" />
+                                <input id="cQuantity" name="cQuantity" hidden="hidden" />
+                                <input id="cPrice" name="cPrice" hidden="hidden" />
+                                <input id="cProductId" name="cProductId" value="@Model.Item1.Id.ToString()" hidden="hidden" />
 
+                                <div class="col-12 order-lg-1 order-2 pt-10 pt-lg-0">
+                                    <div class="single-product-content">
+                                        <h2 class="title">@Model.Item1.Name</h2>
+                                        <div class="price-box pb-1">
+                                            <span class="new-price">Giá hiện tại :</span>
+                                            <span class="new-price text-danger">@string.Format("{0:0,0}", price) đ</span>
+                                            @if (existProdPromotion != null)
+                                            {
+                                                <span class="old-price text-primary">@string.Format("{0:0,0}", existProdPromotion.PromotionDetail.InitialPrice) đ </span>
+                                            }
+                                        </div>
+                                        <div class="price-box pb-1">
+                                            <span id="mQuantityInstock" value="">
+                                                Còn :
+                                                @Model.Item2.Sum(c => c.QuantityInStock) sản phẩm
+
+                                            </span>
+                                        </div>
+                                        <div class="price-box pb-1">
+                                            @{
+                                                string productType = "";
+                                                foreach (var item in Model.Item1.ProductType.Split(',').Distinct().ToList())
+                                                {
+                                                    switch (item)
+                                                    {
+                                                        case "0":
+                                                            productType += "Sản phẩm bình thường";
+                                                            break;
+                                                        case "1":
+                                                            productType += "Sản phẩm mới";
+                                                            break;
+                                                        case "2":
+                                                            productType += "Sản phẩm nổi bật";
+                                                            break;
+                                                        case "3":
+                                                            productType += "Sản phẩm được yêu thích";
+                                                            break;
+                                                        case "4":
+                                                            productType += "Sản phẩm khuyến mại";
+                                                            break;
+                                                        default:
+                                                            break;
+                                                    }
+                                                }
+                                            }
+                                            <span id="mQuantityInstock" value="">
+                                                Loại sản phẩm :
+                                                @productType
+                                            </span>
+                                        </div>
+                                        <div class="price-box pb-1">
+                                            <span id="mQuantityInstock" value="">
+                                                Thương hiệu :
+                                                @Model.Item3.Name
+                                            </span>
+                                        </div>
+                                        <h4 class="cl-class">
+                                            Màu sắc:
+                                            @{
+                                                foreach (var item in Model.Item2.Select(c => c.ColorId).Distinct().ToList())
+                                                {
+                                                    string im = Model.Item2.Where(c => c.ColorId == item && c.ProductId == Model.Item1.Id).Select(c => c.Image).FirstOrDefault().NullToString();
+
+                                                    var dataColor = lstColor.Where(x => x.Status == 1 && x.Id == item).FirstOrDefault();
+
+                                                    @if (dataColor != null)
+                                                    {
+                                                        <button type="button" value="@item" id="btnColor" onclick="changeImageProd('@im')" style="padding: 0 5px 0 5px;" href="/productdetail/@item/@Model.Item1.Id">
+                                                            @(dataColor.Name.NullToString())
+                                                        </button>
+                                                    }
+                                                }
+                                            }
+                                        </h4>
+                                        <h4 class="si-class">
+                                            Size:
+                                            @{
+                                                foreach (var item in Model.Item2.Select(c => c.SizeId).Distinct().ToList())
+                                                {
+                                                    var dataSize = lstSize.Where(x => x.Status == 1 && x.Id == item).FirstOrDefault();
+                                                    var dataProductVariationSize = lstProductvariation.Where(x => x.ProductId == idproduct && x.SizeId == item && x.QuantityInStock > 0).FirstOrDefault();
+                                                    @if (dataSize != null && dataProductVariationSize != null)
+                                                    {
+                                                        <button type="button" value="@item" id="btnSize" style="padding: 0 9px 0 9px;">
+                                                            @(dataSize.Code.NullToString())
+                                                        </button>
+                                                    }
+
+                                                }
+                                            }
+                                        </h4>
+                                        <ul class="quantity-with-btn pb-7">
+                                            <li class="quantity">
+                                                <div class="cart-plus-minus">
+                                                    <input class="cart-plus-minus-box" value="1" type="text">
+                                                </div>
+                                            </li>
+                                            <li class="add-to-cart">
+                                                <a class="btn btn-custom-size lg-size btn-primary btn-secondary-hover rounded-0" href="cart.html">Add to cart</a>
+                                            </li>
+                                            <li class="wishlist-btn-wrap">
+                                                <a class="btn rounded-0" href="wishlist.html">
+                                                    <i class="pe-7s-like"></i>
+                                                </a>
+                                            </li>
+                                        </ul>
+                                        <div class="product-category text-matterhorn pb-2">
+                                            <span class="title">Categories :</span>
+                                            <ul>
+                                                <li>
+                                                    <a href="javascript:void(0)">Natural,</a>
+                                                </li>
+                                                <li>
+                                                    <a href="javascript:void(0)">Organic,</a>
+                                                </li>
+                                                <li>
+                                                    <a href="javascript:void(0)">Beautiful,</a>
+                                                </li>
+                                                <li>
+                                                    <a href="javascript:void(0)">Organic Food</a>
+                                                </li>
+                                            </ul>
+                                        </div>
+                                        <div class="product-category product-tags text-matterhorn pb-4">
+                                            <span class="title">Product Tags :</span>
+                                            <ul>
+                                                <li>
+                                                    <a href="javascript:void(0)">Organic,</a>
+                                                </li>
+                                                <li>
+                                                    <a href="javascript:void(0)">Vegetable,</a>
+                                                </li>
+                                                <li>
+                                                    <a href="javascript:void(0)">Fruits</a>
+                                                </li>
+                                            </ul>
+                                        </div>
+                                        <div class="social-link align-items-center pb-lg-8">
+                                            <span class="title pe-3">Share:</span>
+                                            <ul>
+                                                <li>
+                                                    <a href="javascript:void(0)">
+                                                        <i class="fa fa-pinterest-p"></i>
+                                                    </a>
+                                                </li>
+                                                <li>
+                                                    <a href="javascript:void(0)">
+                                                        <i class="fa fa-twitter"></i>
+                                                    </a>
+                                                </li>
+                                                <li>
+                                                    <a href="javascript:void(0)">
+                                                        <i class="fa fa-tumblr"></i>
+                                                    </a>
+                                                </li>
+                                                <li>
+                                                    <a href="javascript:void(0)">
+                                                        <i class="fa fa-dribbble"></i>
+                                                    </a>
+                                                </li>
+                                            </ul>
+                                        </div>
+                                    </div>
                                 </div>
-                                <hr>
-                                <div class="row">
-                                    <h3 class="col-4">Thành tiền:</h3>
-                                    <h3 class="col-8" style="color:red;" id="totalMoney" name="totalMoney"> 0 đ</h3>
-                                </div>
-                                <div class="form-group">
-                                    <label class="control-label col-sm-3">Mô tả của bạn:</label>
-                                    <div class="col-sm-12">
-                                        <textarea class="form-control" name="cDescription" id="cDescription" cols="50" rows="5"
-                                                  style="border:double 4px orange;"></textarea>
+                            </form>
+                            <div class="col-12 order-lg-2 order-1 pt-10 pt-lg-0">
+                                <div class="swiper-container single-product-thumbs">
+                                    <div class="swiper-wrapper">
+                                        <a href="javascript:void(0)" class="swiper-slide">
+                                            <img class="img-full" src="assets/images/product/large-size/2-1-555x645.jpg" alt="Product Thumnail">
+                                        </a>
+                                        <a href="javascript:void(0)" class="swiper-slide">
+                                            <img class="img-full" src="assets/images/product/large-size/2-2-555x645.jpg" alt="Product Thumnail">
+                                        </a>
+                                        <a href="javascript:void(0)" class="swiper-slide">
+                                            <img class="img-full" src="assets/images/product/large-size/2-3-555x645.jpg" alt="Product Thumnail">
+                                        </a>
+                                        <a href="javascript:void(0)" class="swiper-slide">
+                                            <img class="img-full" src="assets/images/product/large-size/2-4-555x645.jpg" alt="Product Thumnail">
+                                        </a>
                                     </div>
                                 </div>
                             </div>
                         </div>
-                        <div class="row">
-                            <button type="button" id="btnAction" onclick="AddToCart()" class="btn btn-outline-danger col-md-5">
-                                <i class="fa fa-shopping-cart" style="margin-right:10px; font-size: 17px;"></i>Thêm vào giỏ hàng
-                            </button>
-                            <button type="button" id="btnAction" onclick="BuyNow()" class="btn btn-outline-danger col-md-5">
-                                <i class="fa fa-calendar-o" style="margin-right:10px; font-size: 17px;"></i>Mua ngay
-                            </button>
-                        </div>
-
-                    </form>
-
+                    </div>
                 </div>
-            </div>
+            </div> <!-- Kết thúc đây-->
             <br>
             <p>@Model.Item1.Description.NullToString()</p>
             <!-- Danh sách sản phẩm liên quan-->
-        
             <!-- Bình luận, đánh giá-->
             <div class="p-1 text-left" style="background-color: #CCCCCC; margin-top: 30px;">
                 <h4><i class="fa fa-comments" style="margin:5px 10px;"></i>Đánh giá sản phẩm</h4>
