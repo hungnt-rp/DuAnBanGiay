@@ -50,9 +50,9 @@
                         @Html.AntiForgeryToken()
                         <input id="Id" name="Id" hidden="hidden" />
                         <div class="form-group">
-                            <label class="col-md-5">Mã:</label>
+                            <label class="col-md-5">Số size:</label>
                             <div class="form-input">
-                                <input id="Code" name="Code" placeholder="Size code (XL)" maxlength="15"
+                                <input id="Code" name="Code" placeholder="Size code (40)" maxlength="15"
                                     class="form-control" />
                             </div>
                         </div>
@@ -95,7 +95,7 @@
                             <div class="col-md-3">
                                 <div class="form-group">
                                     <div class="col-12 col-xs-12">
-                                        <input id="sCode" placeholder="Tìm kiếm theo mã kích thước..." name="sCode" value="@ViewData["sCode"]"
+                                        <input id="sCode" placeholder="Tìm kiếm theo Số kích thước..." name="sCode" value="@ViewData["sCode"]"
                                             class="form-control" />
                                     </div>
                                 </div>
@@ -146,7 +146,7 @@
                         <thead class="sticky-header">
                             <tr>
                                 <th style="width: 35px;">STT</th>
-                                <th>Mã Size</th>
+                                <th>Số Size</th>
                                 <th>Tên Size</th>
                                 <th>Trạng thái</th>
                                 <th></th>
@@ -187,7 +187,7 @@
             </div>
 
             <div class="form-footer">
-                <div style="float: right">
+                <div style="float: right;">
                     @Html.PagedListPager(Model, page => Url.Action("Index", new { page = page }), new
                     X.PagedList.Web.Common.PagedListRenderOptions()
                     {

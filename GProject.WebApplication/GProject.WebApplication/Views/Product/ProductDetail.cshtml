@@ -217,7 +217,7 @@ GProject.Data.DomainClass.Brand, EvaluateCommentDTO, decimal, int, Customer>
                                                 </div>
                                             </li>
                                             <li class="add-to-cart">
-                                                <a class="btn btn-custom-size lg-size btn-primary btn-secondary-hover rounded-0" onclick="BuyNow()">MUA NGAY</a>
+                                                <a class="btn btn-custom-size lg-size btn-primary btn-secondary-hover rounded-0" style="background:#bac34e" onclick="BuyNow()">MUA NGAY</a>
                                             </li>
                                             <li class="wishlist-btn-wrap">
                                                 <a class="btn rounded-0" onclick="AddToCart()">
@@ -723,14 +723,14 @@ GProject.Data.DomainClass.Brand, EvaluateCommentDTO, decimal, int, Customer>
 
             $('.cl-class > button').click(function () {
                 $('.cl-class > button').css('background-color', 'white');
-                $(this).css('background-color', '#00CCCC');
+                $(this).css('background-color', '#bac34e');
                 $('#cColor').val($(this).val());
                 getQuantityInstock();
             });
 
             $('.si-class > button').click(function () {
                 $('.si-class > button').css('background-color', 'white');
-                $(this).css('background-color', '#00CCCC');
+                $(this).css('background-color', '#bac34e');
                 $('#cSize').val($(this).val());
                 getQuantityInstock();
             });

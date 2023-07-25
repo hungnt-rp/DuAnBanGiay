@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace GProject.Data.Migrations
 {
     [DbContext(typeof(GProjectContext))]
-    [Migration("20230702160600_updateTableOrder_ShippingFee")]
-    partial class updateTableOrder_ShippingFee
+    [Migration("20230725121334_abc123")]
+    partial class abc123
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {

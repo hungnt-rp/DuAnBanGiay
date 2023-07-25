@@ -213,6 +213,10 @@ namespace GProject.WebApplication.Controllers
                     int oriStatus = (int)order.Status;
                     var LstorderDetail = orderDetailRepository.GetAll().Where(c => c.OrderId == order.Id).ToList();
                     order.Status = (Data.Enums.OrderStatus)status;
+                    if (status == 3)
+                    {
+                        order.PaymentDate = DateTime.Now;
+                    }
                     if (!orderRepository.Update(order))
                         HttpContext.Session.SetString("mess", "Failed");
                     else

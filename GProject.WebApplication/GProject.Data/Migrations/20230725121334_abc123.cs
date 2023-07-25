@@ -5,7 +5,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace GProject.Data.Migrations
 {
-    public partial class updateTableOrder_ShippingFee : Migration
+    public partial class abc123 : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
