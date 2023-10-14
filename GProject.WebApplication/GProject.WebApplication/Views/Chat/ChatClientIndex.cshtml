@@ -1,0 +1,230 @@
+﻿@using GProject.Data.DomainClass;
+
+@{
+    ViewData["Title"] = "ChatClientIndex";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@{
+    var user = GProject.WebApplication.Helpers.Commons.GetObjectFromJson<GProject.Data.DomainClass.Customer>(Context.Session, "userLogin");
+    var a = user;
+    var date = (Convert.ToInt32(DateTime.Now.Hour.ToString()) >= 10 ? DateTime.Now.Hour.ToString() : "0" + DateTime.Now.Hour.ToString()) + ":" + (Convert.ToInt32(DateTime.Now.Minute.ToString()) >= 10 ? DateTime.Now.Minute.ToString() : "0" + DateTime.Now.Minute.ToString());
+}
+
+<style>
+    * {
+        font-family: 'Avenir';
+    }
+
+    .bubbleWrapper {
+        padding: 10px 10px;
+        display: flex;
+        justify-content: flex-end;
+        flex-direction: column;
+        align-self: flex-end;
+        color: #fff;
+    }
+
+    .inlineContainer {
+        display: inline-flex;
+    }
+
+        .inlineContainer.own {
+            flex-direction: row-reverse;
+        }
+
+    .inlineIcon {
+        width: 20px;
+        object-fit: contain;
+    }
+
+    .ownBubble {
+        min-width: 60px;
+        max-width: 700px;
+        padding: 14px 18px;
+        margin: 6px 8px;
+        background-color: #5b5377;
+        border-radius: 16px 16px 0 16px;
+        border: 1px solid #443f56;
+    }
+
+    .otherBubble {
+        min-width: 60px;
+        max-width: 700px;
+        padding: 14px 18px;
+        margin: 6px 8px;
+        background-color: #6C8EA4;
+        border-radius: 16px 16px 16px 0;
+        border: 1px solid #54788e;
+    }
+
+    .own {
+        align-self: flex-end;
+    }
+
+    .other {
+        align-self: flex-start;
+    }
+
+    span.own,
+    span.other {
+        font-size: 14px;
+        color: grey;
+    }
+</style>
+
+@section Scripts
+    {
+    <script src="~/lib/microsoft/signalr/dist/signalr.js"></script>
+
+    <script>
+        var connection = new signalR.HubConnectionBuilder().withUrl("https://localhost:7009/realtime").build();
+        console.log(connection);
+        init();
+
+        function init() {
+            connection.start()
+                .catch(err => console.log(err.toString()));
+            LoadMessages();
+        }
+
+        function LoadMessages() {
+            var searchDto = new Object();
+            searchDto.accountId = null;
+            searchDto.isAdmin = null;
+
+            $.ajax({
+                type: "GET",
+                url: "https://localhost:7009/api/Chat/get-all-mess?sort=asc",
+                success: function (data) {
+                    console.log(data);
+                    var template = "";
+                    $.each(data, function (i, item) {
+                        var date_split = item.sendDate.split('T');
+                        var time = date_split[date_split.length - 1];
+                        var time_split = time.split(':');
+                        var time_final = time_split[time_split.length - 3] + ":" + time_split[time_split.length - 2];
+                        console.log(date_split);
+                        if (item.isAdmin && item.userId == "@user.Id") {
+                            template += "<div class='bubbleWrapper'><div class='inlineContainer'><img class='inlineIcon' src='https://cdn1.iconfinder.com/data/icons/ninja-things-1/1772/ninja-simple-512.png' >"
+                                + "<div class='otherBubble other'>" + item.content + "</div></div>"
+                                + "<span class='other'>" + time_final + "</span></div > "
+                        }
+                        else {
+                            if(item.userId == "@user.Id")
+                            {
+                                template += "<div class='bubbleWrapper'>"
+                                    + "<div class='inlineContainer own'>"
+                                    + "<img class='inlineIcon' src='https://www.pinclipart.com/picdir/middle/205-2059398_blinkk-en-mac-app-store-ninja-icon-transparent.png'>"
+                                    + "<div class='ownBubble own'>" + item.content + "</div></div>"
+                                    + "<span class='own'>" + time_final + "</span></div > "
+                            }
+                        }
+                    });
+                    $('#chat-box').append(template);
+                    $("#txtmes").val("");
+                }
+            });
+        }
+
+        function SendMessage(userid) {
+            var message = document.getElementById('txtmes').value;
+            console.log(userid);
+            var model = new Object();
+            model.userId = userid;
+            model.staffId = null;
+            model.content = message;
+            model.isAdmin = null;
+            var body = JSON.stringify(model);
+            connection.invoke('SendMessage', body);
+        }
+
+        connection.on("ReceiveMessage", function (userId, staffId, content, sendDate, isAdmin) {
+            console.log(userId);
+            console.log(staffId);
+            console.log(content);
+            console.log(sendDate);
+            var template = "";
+            var d = new Date();
+            var currentDate = d.getHours() + ":" + d.getMinutes();
+            if (isAdmin == null) {
+                template += "<div class='bubbleWrapper'>"
+                    + "<div class='inlineContainer own'>"
+                    + "<img class='inlineIcon' src='https://www.pinclipart.com/picdir/middle/205-2059398_blinkk-en-mac-app-store-ninja-icon-transparent.png'>"
+                    + "<div class='ownBubble own'>" + content + "</div></div>"
+                    + "<span class='own'>" + currentDate + "</span></div > "
+            }
+            else {
+                template += "<div class='bubbleWrapper'><div class='inlineContainer'><img class='inlineIcon' src='https://cdn1.iconfinder.com/data/icons/ninja-things-1/1772/ninja-simple-512.png' >"
+                    + "<div class='otherBubble other'>" + content + "</div></div>"
+                    + "<span class='other'>" + currentDate + "</span></div > "
+            }
+            $('#chat-box').append(template);
+            $("#txtmes").val("");
+        });
+    </script>
+}
+
+<div class="page-wrapper" id="main-wrapper" data-layout="vertical" data-navbarbg="skin6" data-sidebartype="full"
+     data-sidebar-position="fixed" data-header-position="fixed">
+    <div class="body-wrapper">
+        <div class="container-fluid">
+            <div class="card">
+                <div class="container">
+                    <div id="chat-box" style=" overflow-y: scroll;height:700px">
+                        <h5 class="card-title fw-semibold mb-4">Chat with staff</h5>
+                        <div class="bubbleWrapper">
+                            <div class="inlineContainer">
+                                <img class="inlineIcon" src="https://cdn1.iconfinder.com/data/icons/ninja-things-1/1772/ninja-simple-512.png">
+                                <div class="otherBubble other">
+                                    Vui lòng kết nối tới nhân viên tư vấn
+                                </div>
+                            </div>
+                        </div><span class="other">@date</span>
+                    </div>
+                    
+@*                    @foreach (var item in Model)
+                    {
+                        @if (item.userId == null)
+                        {
+                            <div class="bubbleWrapper">
+                                <div class="inlineContainer">
+                                    <img class="inlineIcon" src="https://cdn1.iconfinder.com/data/icons/ninja-things-1/1772/ninja-simple-512.png">
+                                    <div class="otherBubble other">
+                                        @item.content
+                                    </div>
+                                </div><span class="other">08:41</span>
+                            </div>
+                        }
+                        else
+                        {
+                            <div class="bubbleWrapper">
+                                <div class="inlineContainer own">
+                                    <img class="inlineIcon" src="https://www.pinclipart.com/picdir/middle/205-2059398_blinkk-en-mac-app-store-ninja-icon-transparent.png">
+                                    <div class="ownBubble own">
+                                        @item.content
+                                    </div>
+                                </div><span class="own">08:55</span>
+                            </div>
+                        }
+                    }*@
+                    <form>
+                        <div class="form-actions no-color">
+                            <p>
+                                <div class="row">
+                                    <div class="col-lg-11 d-flex align-items-strech">
+                                        <input type="text" id="txtmes" class="form-control" placeholder="Send message..." />
+                                    </div>
+                                    <div class="col-lg-1">
+                                        <button type="button" value="Search" class="btn btn-primary" onclick="SendMessage('@user.Id')">Send</button>
+                                    </div>
+                                </div>
+                            </p>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+

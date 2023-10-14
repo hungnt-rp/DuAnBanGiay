@@ -727,6 +727,34 @@ namespace GProject.Data.Migrations
                     b.ToTable("FavoriteProduct", (string)null);
                 });
 
+            modelBuilder.Entity("GProject.Data.DomainClass.Message", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
+
+                    b.Property<string>("content")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime>("sendDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("staffId")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("userId")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Messages");
+                });
+
             modelBuilder.Entity("GProject.Data.DomainClass.Order", b =>
                 {
                     b.Property<Guid?>("Id")

@@ -41,7 +41,7 @@
 		</PackageReference>
 		<PackageReference Include="Microsoft.NET.Sdk.Razor" Version="3.1.32" />
 		<PackageReference Include="Microsoft.Owin.Security.Google" Version="4.2.2" />
-		<PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="6.0.15" />
+		<PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="6.0.16" />
 		<PackageReference Include="Newtonsoft.Json" Version="13.0.2" />
 		<PackageReference Include="Quartz" Version="3.6.2" />
 		<PackageReference Include="Quartz.AspNetCore" Version="3.6.2" />
@@ -920,6 +920,8 @@
 	  <None Include="wwwroot\assets\scss\_testimonial.scss" />
 	  <None Include="wwwroot\assets\scss\_variabls.scss" />
 	  <None Include="wwwroot\assets\scss\_wishlist.scss" />
+	  <None Include="wwwroot\lib\microsoft\signalr\dist\signalr.js" />
+	  <None Include="wwwroot\lib\microsoft\signalr\dist\signalr.min.js" />
 	  <None Include="wwwroot\Login\js\script.js" />
 	</ItemGroup>
 

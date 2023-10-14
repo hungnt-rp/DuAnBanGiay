@@ -15,6 +15,7 @@ using System.Web.Http;
 using GProject.WebApplication.Helpers;
 using static IdentityModel.ClaimComparer;
 using AspNetCoreHero.ToastNotification;
+using Logistics.WebAppAdmin.HubConfig;
 
 namespace YourNamespace
 {
@@ -78,7 +79,8 @@ namespace YourNamespace
 					return Task.CompletedTask;
 				};
 			});
-			services.AddRazorPages()
+            services.AddSignalR();
+            services.AddRazorPages()
 	.AddRazorRuntimeCompilation();
 			services.AddScoped<IVnPayService, VnPayService>();
 			services.AddAuthorization();
@@ -117,8 +119,11 @@ namespace YourNamespace
 
             app.UseAuthentication();
             app.UseAuthorization();
-
             app.UseSession();
+            app.UseEndpoints(endpoints =>
+            {
+                endpoints.MapHub<RealTimeHub>("/realtime");
+            });
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapControllerRoute(

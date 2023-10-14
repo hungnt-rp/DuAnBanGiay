@@ -1,0 +1,577 @@
+﻿@using GProject.Data.DomainClass;
+@{
+    ViewData["Title"] = "ChatAdminIndex";
+    Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
+}
+
+@{
+    var user = GProject.WebApplication.Helpers.Commons.GetObjectFromJson<GProject.Data.DomainClass.Employee>(Context.Session, "userLogin");
+}
+<link href="~/lib/chat/slim.css" rel="stylesheet" />
+<style>
+    /* === CONVERSATIONS === */
+
+    .container {
+        padding: 0;
+        background-color: #FFF;
+        box-shadow: 0 10px 20px rgba(0,0,0,0.19), 0 6px 6px rgba(0,0,0,0.23);
+        height: 700px;
+    }
+
+    /* ===== MENU ===== */
+    .menu {
+        float: left;
+        height: 700px;
+        ;
+        width: 70px;
+        background: #4768b5;
+        background: -webkit-linear-gradient(#4768b5, #35488e);
+        background: -o-linear-gradient(#4768b5, #35488e);
+        background: -moz-linear-gradient(#4768b5, #35488e);
+        background: linear-gradient(#4768b5, #35488e);
+        box-shadow: 0 10px 20px rgba(0,0,0,0.19);
+    }
+
+        .menu .items {
+            list-style: none;
+            margin: auto;
+            padding: 0;
+        }
+
+            .menu .items .item {
+                height: 70px;
+                border-bottom: 1px solid #6780cc;
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                color: #9fb5ef;
+                font-size: 17pt;
+            }
+
+            .menu .items .item-active {
+                background-color: #5172c3;
+                color: #FFF;
+            }
+
+            .menu .items .item:hover {
+                cursor: pointer;
+                background-color: #4f6ebd;
+                color: #cfe5ff;
+            }
+
+    /* === CONVERSATIONS === */
+
+    .discussions {
+        width: 35%;
+        height: 700px;
+        box-shadow: 0px 8px 10px rgba(0,0,0,0.20);
+        overflow: hidden;
+        background-color: #87a3ec;
+        display: inline-block;
+    }
+
+        .discussions .discussion {
+            width: 100%;
+            height: 90px;
+            background-color: #FAFAFA;
+            border-bottom: solid 1px #E0E0E0;
+            display: flex;
+            align-items: center;
+            cursor: pointer;
+        }
+
+        .discussions .search {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #E0E0E0;
+        }
+
+            .discussions .search .searchbar {
+                height: 40px;
+                background-color: #FFF;
+                width: 70%;
+                padding: 0 20px;
+                border-radius: 50px;
+                border: 1px solid #EEEEEE;
+                display: flex;
+                align-items: center;
+                cursor: pointer;
+            }
+
+                .discussions .search .searchbar input {
+                    margin-left: 15px;
+                    height: 38px;
+                    width: 100%;
+                    border: none;
+                    font-family: 'Montserrat', sans-serif;
+                    ;
+                }
+
+                .discussions .search .searchbar *::-webkit-input-placeholder {
+                    color: #E0E0E0;
+                }
+
+                .discussions .search .searchbar input *:-moz-placeholder {
+                    color: #E0E0E0;
+                }
+
+                .discussions .search .searchbar input *::-moz-placeholder {
+                    color: #E0E0E0;
+                }
+
+                .discussions .search .searchbar input *:-ms-input-placeholder {
+                    color: #E0E0E0;
+                }
+
+        .discussions .message-active {
+            width: 98.5%;
+            height: 90px;
+            background-color: #FFF;
+            border-bottom: solid 1px #E0E0E0;
+        }
+
+        .discussions .discussion .photo {
+            margin-left: 20px;
+            display: block;
+            width: 45px;
+            height: 45px;
+            background: #E6E7ED;
+            -moz-border-radius: 50px;
+            -webkit-border-radius: 50px;
+            background-position: center;
+            background-size: cover;
+            background-repeat: no-repeat;
+        }
+
+    .online {
+        position: relative;
+        top: 30px;
+        left: 35px;
+        width: 13px;
+        height: 13px;
+        background-color: #8BC34A;
+        border-radius: 13px;
+        border: 3px solid #FAFAFA;
+    }
+
+    .desc-contact {
+        height: 43px;
+        width: 50%;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+    }
+
+    .discussions .discussion .name {
+        margin: 0 0 0 20px;
+        font-family: 'Montserrat', sans-serif;
+        font-size: 11pt;
+        color: #515151;
+    }
+
+    .discussions .discussion .message {
+        margin: 1px 0 0 20px;
+        font-family: 'Montserrat', sans-serif;
+        font-size: 9pt;
+        color: #515151;
+    }
+
+    .timer {
+        margin-left: 15%;
+        font-family: 'Open Sans', sans-serif;
+        font-size: 11px;
+        padding: 3px 8px;
+        color: #BBB;
+        background-color: #FFF;
+        border: 1px solid #E5E5E5;
+        border-radius: 15px;
+    }
+
+    .chat {
+        width: calc(65% - 85px);
+    }
+
+    .header-chat {
+        background-color: #FFF;
+        height: 90px;
+        box-shadow: 0px 3px 2px rgba(0,0,0,0.100);
+        display: flex;
+        align-items: center;
+    }
+
+    .chat .header-chat .icon {
+        margin-left: 30px;
+        color: #515151;
+        font-size: 14pt;
+    }
+
+    .chat .header-chat .name {
+        margin: 0 0 0 20px;
+        text-transform: uppercase;
+        font-family: 'Montserrat', sans-serif;
+        font-size: 13pt;
+        color: #515151;
+    }
+
+    .chat .header-chat .right {
+        position: absolute;
+        right: 40px;
+    }
+
+    .chat .messages-chat {
+        padding: 25px 35px;
+    }
+
+        .chat .messages-chat .message {
+            display: flex;
+            align-items: center;
+            margin-bottom: 8px;
+        }
+
+            .chat .messages-chat .message .photo {
+                display: block;
+                width: 45px;
+                height: 45px;
+                background: #E6E7ED;
+                -moz-border-radius: 50px;
+                -webkit-border-radius: 50px;
+                background-position: center;
+                background-size: cover;
+                background-repeat: no-repeat;
+            }
+
+        .chat .messages-chat .text {
+            margin: 0 35px;
+            background-color: #f6f6f6;
+            padding: 15px;
+            border-radius: 12px;
+        }
+
+    .text-only {
+        margin-left: 45px;
+    }
+
+    .time {
+        font-size: 10px;
+        color: lightgrey;
+        margin-bottom: 10px;
+        margin-left: 85px;
+    }
+
+    .response-time {
+        float: right;
+        margin-right: 40px !important;
+    }
+
+    .response {
+        float: right;
+        margin-right: 0px !important;
+        margin-left: auto; /* flexbox alignment rule */
+    }
+
+        .response .text {
+            background-color: #e3effd !important;
+        }
+
+    .footer-chat {
+        width: 100%;
+        height: 80px;
+        display: flex;
+        align-items: center;
+        position: absolute;
+        bottom: 0;
+        background-color: transparent;
+        border-top: 2px solid #EEE;
+    }
+
+    .chat .footer-chat .icon {
+        margin-left: 30px;
+        color: #C0C0C0;
+        font-size: 14pt;
+    }
+
+    .chat .footer-chat .send {
+        color: #fff;
+        background-color: #4f6ebd;
+        position: absolute;
+        right: 50px;
+        padding: 12px 12px 12px 12px;
+        border-radius: 50px;
+        font-size: 14pt;
+    }
+
+    .chat .footer-chat .name {
+        margin: 0 0 0 20px;
+        text-transform: uppercase;
+        font-family: 'Montserrat', sans-serif;
+        font-size: 13pt;
+        color: #515151;
+    }
+
+    .chat .footer-chat .right {
+        position: absolute;
+        right: 40px;
+    }
+
+    .write-message {
+        border: none !important;
+        width: 60%;
+        height: 50px;
+        margin-left: 20px;
+        padding: 10px;
+    }
+
+    .footer-chat *::-webkit-input-placeholder {
+        color: #C0C0C0;
+        font-size: 13pt;
+    }
+
+    .footer-chat input *:-moz-placeholder {
+        color: #C0C0C0;
+        font-size: 13pt;
+    }
+
+    .footer-chat input *::-moz-placeholder {
+        color: #C0C0C0;
+        font-size: 13pt;
+        margin-left: 5px;
+    }
+
+    .footer-chat input *:-ms-input-placeholder {
+        color: #C0C0C0;
+        font-size: 13pt;
+    }
+
+    .clickable {
+        cursor: pointer;
+    }
+
+
+    .bubbleWrapper {
+        padding: 10px 10px;
+        display: flex;
+        justify-content: flex-end;
+        flex-direction: column;
+        align-self: flex-end;
+        color: #fff;
+    }
+
+    .inlineContainer {
+        display: inline-flex;
+    }
+
+        .inlineContainer.own {
+            flex-direction: row-reverse;
+        }
+
+    .inlineIcon {
+        width: 20px;
+        object-fit: contain;
+    }
+
+    .ownBubble {
+        min-width: 60px;
+        max-width: 700px;
+        padding: 14px 18px;
+        margin: 6px 8px;
+        background-color: #5b5377;
+        border-radius: 16px 16px 0 16px;
+        border: 1px solid #443f56;
+    }
+
+    .otherBubble {
+        min-width: 60px;
+        max-width: 700px;
+        padding: 14px 18px;
+        margin: 6px 8px;
+        background-color: #6C8EA4;
+        border-radius: 16px 16px 16px 0;
+        border: 1px solid #54788e;
+    }
+
+    .own {
+        align-self: flex-end;
+    }
+
+    .other {
+        align-self: flex-start;
+    }
+
+    span.own,
+    span.other {
+        font-size: 14px;
+        color: grey;
+    }
+</style>
+
+@section Scripts
+    {
+    <script src="~/lib/microsoft/signalr/dist/signalr.js"></script>
+    <script>
+        var messages = new Array();
+        var connection = new signalR.HubConnectionBuilder().withUrl("https://localhost:7009/realtime").build();
+        console.log(connection);
+        init();
+
+        function init() {
+            connection.start()
+                .catch(err => console.log(err.toString()));
+            LoadMessages();
+        }
+
+        function LoadMessages() {
+            document.getElementById("chat-user").innerHTML = "";
+            $.ajax({
+                type: "GET",
+                url: "https://localhost:7009/api/Chat/get-all-mess?sort=desc",
+                success: function (data) {
+                    console.log(data);
+                    var template = "";
+                    $.each(data, function (i, item) {
+                        var fisrtUser = data[0].userId;
+                        var date_split = item.sendDate.split('T');
+                        var time = date_split[date_split.length - 1];
+                        var time_split = time.split(':');
+                        var time_final = time_split[time_split.length - 3] + ":" + time_split[time_split.length - 2];
+                        console.log(date_split);
+                        var isExist = messages.some(x => x.userId == item.userId);
+                        if (isExist == false && item.isAdmin == null) {
+                            messages.push(item);
+                        }
+                    });
+
+                    messages.sort((a, b) => {
+                        let da = new Date(a.sendDate),
+                            db = new Date(b.sendDate);
+                        var result = db - da;
+                        return result;
+                    });
+
+                    $.each(messages, function (i, item) {
+                        if (item.isAdmin == null) {
+                            template += "<div class='discussion' onclick='GetMessage(" + item.id + ",\"" + item.userId + "\")'>"
+                                + "<div class='photo' style='background-image: url(https://images.unsplash.com/photo-1438761681033-6461ffad8d80?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=1050&q=80)'>"
+                                + "<div class='online'></div>"
+                                + "</div>"
+                                + "<div class='desc-contact'>"
+                                + "<p class='name'>" + item.userId + "</p>"
+                                + "<p class='message'>" + item.content + "</p>"
+                                + "</div>"
+                                + "<div class='timer'>12 sec</div>"
+                                + "</div>";
+                        }
+
+                    })
+
+                    $('#chat-user').append(template);
+                }
+            });
+
+        }
+
+        function GetMessage(id, userId) {
+            console.log(id);
+            console.log("@user.Id");
+            document.getElementById("userid").innerText = userId;
+            document.getElementById("userid").value = userId;
+            var template = "";
+            $.ajax({
+                type: "GET",
+                url: `https://localhost:7009/api/Chat/get-mess-by-id?id=${id}&userid=${userId}&staffid=@user.Id`,
+                success: function (data) {
+                    console.log(data);
+
+                    $.each(data, function (i, item) {
+                        var fisrtUser = data[0].userId;
+                        var date_split = item.sendDate.split('T');
+                        var time = date_split[date_split.length - 1];
+                        var time_split = time.split(':');
+                        var time_final = time_split[time_split.length - 3] + ":" + time_split[time_split.length - 2];
+                        console.log(date_split);
+                        if (item.isAdmin == null) {
+
+                            template += "<div class='bubbleWrapper'><div class='inlineContainer'><img class='inlineIcon' src='https://cdn1.iconfinder.com/data/icons/ninja-things-1/1772/ninja-simple-512.png' >"
+                                + "<div class='otherBubble other'>" + item.content + "</div></div>"
+                                + "<span class='other'>" + time_final + "</span></div > "
+                        }
+                        else {
+                            template += "<div class='bubbleWrapper'>"
+                                + "<div class='inlineContainer own'>"
+                                + "<img class='inlineIcon' src='https://www.pinclipart.com/picdir/middle/205-2059398_blinkk-en-mac-app-store-ninja-icon-transparent.png'>"
+                                + "<div class='ownBubble own'>" + item.content + "</div></div>"
+                                + "<span class='own'>" + time_final + "</span></div > "
+                        }
+                    });
+                    console.log(template)
+                    $('#chat-box').append(template);
+                }
+            });
+        }
+
+        function SendMessage(staffId) {
+            var message = document.getElementById('txtmes').value;
+            console.log(staffId);
+            var model = new Object();
+            model.staffId = staffId;
+            model.userId = document.getElementById("userid").innerText;
+            model.isAdmin = true;
+            model.content = message;
+            var body = JSON.stringify(model);
+            connection.invoke('SendMessage', body);
+        }
+
+        connection.on("ReceiveMessage", function (userId, staffId, content, sendDate, isAdmin) {
+
+            LoadMessages();
+            console.log(userId);
+            console.log(staffId);
+            console.log(content);
+            console.log(sendDate);
+            var isLoad = document.getElementById("userid").value;
+            if (isLoad != undefined) {
+                var template = "";
+                var d = new Date();
+                var currentDate = d.getHours() + ":" + d.getMinutes();
+                if (isAdmin == true) {
+                    template += "<div class='bubbleWrapper'>"
+                        + "<div class='inlineContainer own'>"
+                        + "<img class='inlineIcon' src='https://www.pinclipart.com/picdir/middle/205-2059398_blinkk-en-mac-app-store-ninja-icon-transparent.png'>"
+                        + "<div class='ownBubble own'>" + content + "</div></div>"
+                        + "<span class='own'>" + currentDate + "</span></div > ";
+                }
+                else {
+                    template += "<div class='bubbleWrapper'><div class='inlineContainer'><img class='inlineIcon' src='https://cdn1.iconfinder.com/data/icons/ninja-things-1/1772/ninja-simple-512.png' >"
+                        + "<div class='otherBubble other'>" + content + "</div></div>"
+                        + "<span class='other'>" + currentDate + "</span></div > ";
+                }
+                $('#chat-box').append(template);
+                $("#txtmes").val("");
+            }
+
+        });
+    </script>
+}
+
+<div class="container">
+    <div class="row">
+        <div class="discussions" id="chat-user">
+        </div>
+        <div class="chat">
+            <div class="header-chat">
+                <i class="icon fa fa-user-o" aria-hidden="true"></i>
+                <p class="name" id="userid">Hãy chọn 1 đoạn chat</p>
+                <i class="icon clickable fa fa-ellipsis-h right" aria-hidden="true"></i>
+            </div>
+            <div class="messages-chat" style=" overflow-y: scroll;height:500px" id="chat-box">
+            </div>
+            <div class="footer-chat">
+                <i class="icon fa fa-smile-o clickable" style="font-size:25pt;" aria-hidden="true"></i>
+                <input type="text" class="write-message" id="txtmes" placeholder="Type your message here"></input>
+                <i class="icon send fa fa-paper-plane-o clickable" aria-hidden="true" onclick="SendMessage('@user.Id')"></i>
+            </div>
+        </div>
+    </div>
+</div>
+
+
