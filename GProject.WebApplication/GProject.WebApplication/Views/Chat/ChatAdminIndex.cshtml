@@ -6,6 +6,8 @@
 
 @{
     var user = GProject.WebApplication.Helpers.Commons.GetObjectFromJson<GProject.Data.DomainClass.Employee>(Context.Session, "userLogin");
+    List<Customer> dataCustomers = new List<Customer>();
+    var LayData = dataCustomers.ToList();
 }
 <link href="~/lib/chat/slim.css" rel="stylesheet" />
 <style>
@@ -455,7 +457,7 @@
                                 + "<div class='online'></div>"
                                 + "</div>"
                                 + "<div class='desc-contact'>"
-                                + "<p class='name'>" + item.userId + "</p>"
+                                + "<p class='name'>" + item.id + "</p>"
                                 + "<p class='message'>" + item.content + "</p>"
                                 + "</div>"
                                 + "<div class='timer'>12 sec</div>"
@@ -471,6 +473,7 @@
         }
 
         function GetMessage(id, userId) {
+            document.getElementById("chat-box").innerHTML = "";
             console.log(id);
             console.log("@user.Id");
             document.getElementById("userid").innerText = userId;

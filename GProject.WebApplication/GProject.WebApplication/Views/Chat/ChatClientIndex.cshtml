@@ -148,16 +148,22 @@
             var d = new Date();
             var currentDate = d.getHours() + ":" + d.getMinutes();
             if (isAdmin == null) {
-                template += "<div class='bubbleWrapper'>"
-                    + "<div class='inlineContainer own'>"
-                    + "<img class='inlineIcon' src='https://www.pinclipart.com/picdir/middle/205-2059398_blinkk-en-mac-app-store-ninja-icon-transparent.png'>"
-                    + "<div class='ownBubble own'>" + content + "</div></div>"
-                    + "<span class='own'>" + currentDate + "</span></div > "
+                if (userId == '@user.Id') {
+                    template += "<div class='bubbleWrapper'>"
+                        + "<div class='inlineContainer own'>"
+                        + "<img class='inlineIcon' src='https://www.pinclipart.com/picdir/middle/205-2059398_blinkk-en-mac-app-store-ninja-icon-transparent.png'>"
+                        + "<div class='ownBubble own'>" + content + "</div></div>"
+                        + "<span class='own'>" + currentDate + "</span></div > "
+                }
+
             }
             else {
-                template += "<div class='bubbleWrapper'><div class='inlineContainer'><img class='inlineIcon' src='https://cdn1.iconfinder.com/data/icons/ninja-things-1/1772/ninja-simple-512.png' >"
-                    + "<div class='otherBubble other'>" + content + "</div></div>"
-                    + "<span class='other'>" + currentDate + "</span></div > "
+                if(userId == '@user.Id')
+                {
+                    template += "<div class='bubbleWrapper'><div class='inlineContainer'><img class='inlineIcon' src='https://cdn1.iconfinder.com/data/icons/ninja-things-1/1772/ninja-simple-512.png' >"
+                        + "<div class='otherBubble other'>" + content + "</div></div>"
+                        + "<span class='other'>" + currentDate + "</span></div > "
+                }
             }
             $('#chat-box').append(template);
             $("#txtmes").val("");

@@ -22,8 +22,8 @@ namespace Logistics.WebAppAdmin.HubConfig
             {
                 ItemMessage model = JsonConvert.DeserializeObject<ItemMessage>(body);
                 Message chat = new Message();
-                chat.userId = model?.userId;
-                chat.staffId = model?.staffId;
+                chat.userId = model?.userId.ToLower();
+                chat.staffId = model.staffId;
                 chat.sendDate = DateTime.Now;
                 chat.content = model?.content;
                 chat.isAdmin = model?.isAdmin;

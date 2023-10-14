@@ -50,11 +50,13 @@ namespace GProject.Api.Controllers
                 var message = chatService.GetMessages().FirstOrDefault(x => x.Id == id);
                 if (message != null)
                 {
-                    message.staffId = staffid;
+                    message.staffId = staffid.ToLower();
+                    message.userId = userid.ToLower();
                     var isSuucess = context.Messages.Update(message);
                     context.SaveChanges();
                 }
-                return chatService.GetMessages().Where(x => x.staffId == staffid && x.userId == userid).ToList();
+                var result = chatService.GetMessages().Where(x => x.staffId== staffid.ToLower() && x.userId == userid.ToLower()).ToList();
+                return result;
             }
             catch (Exception)
             {
