@@ -105,14 +105,13 @@
                         var time_split = time.split(':');
                         var time_final = time_split[time_split.length - 3] + ":" + time_split[time_split.length - 2];
                         console.log(date_split);
-                        if (item.isAdmin && item.userId == "@user.Id") {
+                        if (item.isAdmin && item.userId.toUpperCase() == "@user.Id?.ToString().ToUpper()") {
                             template += "<div class='bubbleWrapper'><div class='inlineContainer'><img class='inlineIcon' src='https://cdn1.iconfinder.com/data/icons/ninja-things-1/1772/ninja-simple-512.png' >"
                                 + "<div class='otherBubble other'>" + item.content + "</div></div>"
                                 + "<span class='other'>" + time_final + "</span></div > "
                         }
                         else {
-                            if(item.userId == "@user.Id")
-                            {
+                            if (item.userId.toUpperCase() == "@user.Id?.ToString().ToUpper()") {
                                 template += "<div class='bubbleWrapper'>"
                                     + "<div class='inlineContainer own'>"
                                     + "<img class='inlineIcon' src='https://www.pinclipart.com/picdir/middle/205-2059398_blinkk-en-mac-app-store-ninja-icon-transparent.png'>"
@@ -148,7 +147,7 @@
             var d = new Date();
             var currentDate = d.getHours() + ":" + d.getMinutes();
             if (isAdmin == null) {
-                if (userId == '@user.Id') {
+                if (userId.toUpperCase() == '@user.Id?.ToString().ToUpper()') {
                     template += "<div class='bubbleWrapper'>"
                         + "<div class='inlineContainer own'>"
                         + "<img class='inlineIcon' src='https://www.pinclipart.com/picdir/middle/205-2059398_blinkk-en-mac-app-store-ninja-icon-transparent.png'>"
@@ -158,8 +157,7 @@
 
             }
             else {
-                if(userId == '@user.Id')
-                {
+                if (userId.toUpperCase() == '@user.Id?.ToString().ToUpper()') {
                     template += "<div class='bubbleWrapper'><div class='inlineContainer'><img class='inlineIcon' src='https://cdn1.iconfinder.com/data/icons/ninja-things-1/1772/ninja-simple-512.png' >"
                         + "<div class='otherBubble other'>" + content + "</div></div>"
                         + "<span class='other'>" + currentDate + "</span></div > "
