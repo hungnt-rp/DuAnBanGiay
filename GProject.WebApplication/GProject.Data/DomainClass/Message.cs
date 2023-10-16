@@ -11,6 +11,7 @@ namespace GProject.Data.DomainClass
         public int Id { get; set; }
         public string? userId { get; set; }
         public string? staffId { get; set; }
+        public string? name { get; set; }
         public string content { get; set; }
         public DateTime sendDate{ get; set; }
         public bool? isAdmin{ get; set; }

@@ -24,6 +24,7 @@ namespace Logistics.WebAppAdmin.HubConfig
                 Message chat = new Message();
                 chat.userId = model?.userId.ToLower();
                 chat.staffId = model.staffId;
+                chat.name = model.name;
                 chat.sendDate = DateTime.Now;
                 chat.content = model?.content;
                 chat.isAdmin = model?.isAdmin;
@@ -44,6 +45,7 @@ namespace Logistics.WebAppAdmin.HubConfig
     {
         public string? userId { get; set; }
         public string? staffId { get; set; }
+        public string? name { get; set; }
         public string? content { get; set; }
         public Boolean? isAdmin { get; set; }
     }

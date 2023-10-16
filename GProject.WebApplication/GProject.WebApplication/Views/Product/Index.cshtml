@@ -88,7 +88,7 @@ List<GProject.Data.DomainClass.ViewHistory>>
 <div class="slider-area">
 
 	<!-- Main Slider -->
-	<div class="banner-area banner-with-parallax py-10" data-bg-image="assets/images/banner/2-1-1920x523.jpg">
+	<div class="banner-area banner-with-parallax py-10" style="background-image: url(/assets/images/banner/2-1-1920x523.jpg)">
 		<div class="container">
 			<div class="row">
 				<div class="col-md-6">
@@ -96,7 +96,7 @@ List<GProject.Data.DomainClass.ViewHistory>>
 						<div class="papaya">
 							<div class="scene fill">
 								<div class="expand-width" data-depth="0.2">
-									<img src="assets/images/banner/screenshot_1689753713.png" alt="Banner Images">
+									<img src="~/assets/images/banner/screenshot_1689753713.png" alt="Banner Images">
 								</div>
 							</div>
 						</div>
@@ -146,7 +146,7 @@ List<GProject.Data.DomainClass.ViewHistory>>
 			<div class="col-lg-4 col-md-6">
 				<div class="shipping-item">
 					<div class="shipping-img">
-						<img src="assets/images/shipping/icon/plane.png" alt="Shipping Icon">
+						<img src="~/assets/images/shipping/icon/plane.png" alt="Shipping Icon">
 					</div>
 					<div class="shipping-content">
 						<h5 class="title">Free Shipping</h5>
@@ -157,7 +157,7 @@ List<GProject.Data.DomainClass.ViewHistory>>
 			<div class="col-lg-4 col-md-6 pt-6 pt-md-0">
 				<div class="shipping-item">
 					<div class="shipping-img">
-						<img src="assets/images/shipping/icon/earphones.png" alt="Shipping Icon">
+						<img src="~/assets/images/shipping/icon/earphones.png" alt="Shipping Icon">
 					</div>
 					<div class="shipping-content">
 						<h5 class="title">Online Support</h5>
@@ -168,12 +168,97 @@ List<GProject.Data.DomainClass.ViewHistory>>
 			<div class="col-lg-4 col-md-6 pt-6 pt-lg-0">
 				<div class="shipping-item">
 					<div class="shipping-img">
-						<img src="assets/images/shipping/icon/shield.png" alt="Shipping Icon">
+						<img src="~/assets/images/shipping/icon/shield.png" alt="Shipping Icon">
 					</div>
 					<div class="shipping-content">
 						<h5 class="title">Secure Payment</h5>
 						<p class="short-desc mb-0">Fully Secure Payment System</p>
 					</div>
+				</div>
+			</div>
+		</div>
+		<div class="row align-items-center" style="margin-top:60px">
+			<div class="col text-center">
+				<div class="new_arrivals_sorting">
+					<ul class="arrivals_grid_sorting clearfix button-group filters-button-group">
+						<form id="Searchform" name="searchForm" method="post" class="form-horizontal"
+							  action="/Product/index">
+							<div class="row">
+								<div class="col-md-2">
+									<div class="form-group">
+										<input type="text" id="prodName" name="prodName" value="@ViewData["prodName"]"
+											   placeholder="Tên sản phẩm" class="form-control col-12" />
+									</div>
+								</div>
+								<div class="col-md-2">
+									<div class="form-group">
+										@Html.DropDownList("category", CategoryItems, new { @maxlength = "30", @class =
+										"searchText form-control col-12" })
+									</div>
+								</div>
+								<div class="col-md-2">
+									<div class="form-group">
+										@Html.DropDownList("brand", StoreItems, new { @maxlength = "30", @class =
+										"searchText form-control col-12" })
+									</div>
+								</div>
+								<div class="col-md-2">
+									<div class="form-group">
+										@{
+											decimal fPrice = decimal.Parse(Html.Encode(ViewData["fPrice"]));
+										}
+										@Html.DropDownList("fPrice",new[]
+										{
+										new SelectListItem{Text=" Giá từ ", Value="-1", Selected= (fPrice== -1)},
+										new SelectListItem{Text="0 VNĐ", Value="0", Selected= (fPrice== 0)},
+										new SelectListItem{Text="100.000 VNĐ", Value="100000", Selected= (fPrice==
+										100000)},
+										new SelectListItem{Text="200.000 VNĐ", Value="200000", Selected= (fPrice ==
+										200000)},
+										new SelectListItem{Text="500.000 VNĐ", Value="500000", Selected= (fPrice==
+										500000)},
+										new SelectListItem{Text="1.000.000 VNĐ", Value="1000000", Selected= (fPrice ==
+										1000000)}
+										}, new { @name = "sStatus", @class="searchText form-control select col-12"})
+									</div>
+								</div>
+								<div class="col-md-2">
+									<div class="form-group">
+										@{
+											int tPrice = int.Parse(Html.Encode(ViewData["tPrice"]));
+										}
+										@Html.DropDownList("tPrice",new[]
+										{
+										new SelectListItem{Text=" Giá đến ", Value="-1", Selected= (tPrice== -1)},
+										new SelectListItem{Text="0 VNĐ", Value="0", Selected= (tPrice== 0)},
+										new SelectListItem{Text="< 100.000 VNĐ", Value="100000", Selected= (tPrice==
+										100000)},
+										new SelectListItem{Text="< 200.000 VNĐ", Value="200000", Selected= (tPrice ==
+										200000)},
+										new SelectListItem{Text="< 500.000 VNĐ", Value="500000", Selected= (tPrice==
+										500000)},
+										new SelectListItem{Text="< 1.000.000 VNĐ", Value="1000000", Selected= (tPrice ==
+										1000000)},
+										new SelectListItem{Text="trên 1.000.000 VNĐ", Value="1000001", Selected= (tPrice
+										== 1000001)}
+										}, new { @name = "sStatus", @class="searchText form-control select col-12"})
+									</div>
+								</div>
+								<div class="col-md-2">
+									<div class="form-group">
+										<button class="btn btn-success"
+												onclick="$('.searchText').removeAttr('disabled')" type="submit">
+											<i class="fa fa-search"></i>
+										</button>
+										<a class="btn btn-outline-info" asp-controller="Product" asp-action="Index"
+										   asp-route-clear="clear">
+											<i class="fas fa-undo-alt"></i>
+										</a>
+									</div>
+								</div>
+							</div>
+						</form>
+					</ul>
 				</div>
 			</div>
 		</div>

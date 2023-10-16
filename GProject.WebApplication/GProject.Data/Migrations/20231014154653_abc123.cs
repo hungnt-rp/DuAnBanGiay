@@ -222,6 +222,23 @@ namespace GProject.Data.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "Messages",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    userId = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    staffId = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    content = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    sendDate = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    isAdmin = table.Column<bool>(type: "bit", nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Messages", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "Posts",
                 columns: table => new
                 {
@@ -873,6 +890,9 @@ namespace GProject.Data.Migrations
 
             migrationBuilder.DropTable(
                 name: "FavoriteProduct");
+
+            migrationBuilder.DropTable(
+                name: "Messages");
 
             migrationBuilder.DropTable(
                 name: "OrderDetail");

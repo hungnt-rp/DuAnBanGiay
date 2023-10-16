@@ -1,4 +1,5 @@
 ﻿@using GProject.Data.DomainClass;
+@using Newtonsoft.Json
 @{
     ViewData["Title"] = "ChatAdminIndex";
     Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
@@ -6,8 +7,7 @@
 
 @{
     var user = GProject.WebApplication.Helpers.Commons.GetObjectFromJson<GProject.Data.DomainClass.Employee>(Context.Session, "userLogin");
-    List<Customer> dataCustomers = new List<Customer>();
-    var LayData = dataCustomers.ToList();
+    var xx = JsonConvert.SerializeObject(user.Name);
 }
 <link href="~/lib/chat/slim.css" rel="stylesheet" />
 <style>
@@ -452,18 +452,18 @@
 
                     $.each(messages, function (i, item) {
                         if (item.isAdmin == null) {
-                            template += "<div class='discussion' onclick='GetMessage(" + item.id + ",\"" + item.userId + "\")'>"
+
+                            template += "<div class='discussion' onclick='GetMessage(" + item.id + ",\"" + item.name + "\",\"" + item.userId+ "\")'>"
                                 + "<div class='photo' style='background-image: url(https://images.unsplash.com/photo-1438761681033-6461ffad8d80?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=1050&q=80)'>"
                                 + "<div class='online'></div>"
                                 + "</div>"
                                 + "<div class='desc-contact'>"
-                                + "<p class='name'>" + item.id + "</p>"
+                                + "<p class='name'>" + item.name + "</p>"
                                 + "<p class='message'>" + item.content + "</p>"
                                 + "</div>"
                                 + "<div class='timer'>12 sec</div>"
                                 + "</div>";
                         }
-
                     })
 
                     $('#chat-user').append(template);
@@ -472,11 +472,10 @@
 
         }
 
-        function GetMessage(id, userId) {
+        function GetMessage(id,name, userId) {
             document.getElementById("chat-box").innerHTML = "";
-            console.log(id);
             console.log("@user.Id");
-            document.getElementById("userid").innerText = userId;
+            document.getElementById("userid").innerText = name;
             document.getElementById("userid").value = userId;
             var template = "";
             $.ajax({
@@ -517,7 +516,8 @@
             console.log(staffId);
             var model = new Object();
             model.staffId = staffId;
-            model.userId = document.getElementById("userid").innerText;
+            model.userId = document.getElementById("userid").value;
+            model.name = document.getElementById("userid").innerHTML;
             model.isAdmin = true;
             model.content = message;
             var body = JSON.stringify(model);

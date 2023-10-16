@@ -20,12 +20,13 @@ namespace GProject.Data.Context
             //@"Data Source=LAPTOP-2GTIBL55\SQLEXPRESS;Initial Catalog=ABC;Integrated Security=True"
 
 
-//<<<<<<< Updated upstream
-//            optionsBuilder.UseSqlServer(@"Data Source=HP\SQLEXPRESS;Initial Catalog=DB_Du_An_Ban_Giay;Integrated Security=True");
-//            //optionsBuilder.UseSqlServer(@"Data Source=DESKTOP-CAAAC2V;Initial Catalog=DB_Du_An;Integrated Security=True");
-//=======
-            optionsBuilder.UseSqlServer(@"Server=DESKTOP-C07FMHV;User ID=admin;Password=07081999;Database=DB_Du_An;Integrated Security=false;");
-//>>>>>>> Stashed changes
+            //<<<<<<< Updated upstream
+            //            optionsBuilder.UseSqlServer(@"Data Source=HP\SQLEXPRESS;Initial Catalog=DB_Du_An_Ban_Giay;Integrated Security=True");
+            //            //optionsBuilder.UseSqlServer(@"Data Source=DESKTOP-CAAAC2V;Initial Catalog=DB_Du_An;Integrated Security=True");
+            //=======
+            optionsBuilder.UseSqlServer(@"Data Source=HP\SQLEXPRESS;Initial Catalog=DB_Du_An_Ban_Giay;Integrated Security=True");
+
+            //>>>>>>> Stashed changes
 
 
 

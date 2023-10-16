@@ -105,14 +105,13 @@
                         var time_split = time.split(':');
                         var time_final = time_split[time_split.length - 3] + ":" + time_split[time_split.length - 2];
                         console.log(date_split);
-                        if (item.isAdmin && item.userId == "@user.Id") {
+                        if (item.isAdmin && item.userId.toUpperCase() == "@user.Id?.ToString().ToUpper()") {
                             template += "<div class='bubbleWrapper'><div class='inlineContainer'><img class='inlineIcon' src='https://cdn1.iconfinder.com/data/icons/ninja-things-1/1772/ninja-simple-512.png' >"
                                 + "<div class='otherBubble other'>" + item.content + "</div></div>"
                                 + "<span class='other'>" + time_final + "</span></div > "
                         }
                         else {
-                            if(item.userId == "@user.Id")
-                            {
+                            if (item.userId.toUpperCase() == "@user.Id?.ToString().ToUpper()") {
                                 template += "<div class='bubbleWrapper'>"
                                     + "<div class='inlineContainer own'>"
                                     + "<img class='inlineIcon' src='https://www.pinclipart.com/picdir/middle/205-2059398_blinkk-en-mac-app-store-ninja-icon-transparent.png'>"
@@ -134,6 +133,7 @@
             model.userId = userid;
             model.staffId = null;
             model.content = message;
+            model.name = "@user.Name";
             model.isAdmin = null;
             var body = JSON.stringify(model);
             connection.invoke('SendMessage', body);
@@ -148,7 +148,7 @@
             var d = new Date();
             var currentDate = d.getHours() + ":" + d.getMinutes();
             if (isAdmin == null) {
-                if (userId == '@user.Id') {
+                if (userId.toUpperCase() == '@user.Id?.ToString().ToUpper()') {
                     template += "<div class='bubbleWrapper'>"
                         + "<div class='inlineContainer own'>"
                         + "<img class='inlineIcon' src='https://www.pinclipart.com/picdir/middle/205-2059398_blinkk-en-mac-app-store-ninja-icon-transparent.png'>"
@@ -158,8 +158,7 @@
 
             }
             else {
-                if(userId == '@user.Id')
-                {
+                if (userId.toUpperCase() == '@user.Id?.ToString().ToUpper()') {
                     template += "<div class='bubbleWrapper'><div class='inlineContainer'><img class='inlineIcon' src='https://cdn1.iconfinder.com/data/icons/ninja-things-1/1772/ninja-simple-512.png' >"
                         + "<div class='otherBubble other'>" + content + "</div></div>"
                         + "<span class='other'>" + currentDate + "</span></div > "
@@ -178,7 +177,7 @@
             <div class="card">
                 <div class="container">
                     <div id="chat-box" style=" overflow-y: scroll;height:700px">
-                        <h5 class="card-title fw-semibold mb-4">Chat with staff</h5>
+                        <h5 class="card-title fw-semibold mb-4">Tư vấn với nhân viên</h5>
                         <div class="bubbleWrapper">
                             <div class="inlineContainer">
                                 <img class="inlineIcon" src="https://cdn1.iconfinder.com/data/icons/ninja-things-1/1772/ninja-simple-512.png">
@@ -188,31 +187,31 @@
                             </div>
                         </div><span class="other">@date</span>
                     </div>
-                    
-@*                    @foreach (var item in Model)
+
+                    @*                    @foreach (var item in Model)
                     {
-                        @if (item.userId == null)
-                        {
-                            <div class="bubbleWrapper">
-                                <div class="inlineContainer">
-                                    <img class="inlineIcon" src="https://cdn1.iconfinder.com/data/icons/ninja-things-1/1772/ninja-simple-512.png">
-                                    <div class="otherBubble other">
-                                        @item.content
-                                    </div>
-                                </div><span class="other">08:41</span>
-                            </div>
-                        }
-                        else
-                        {
-                            <div class="bubbleWrapper">
-                                <div class="inlineContainer own">
-                                    <img class="inlineIcon" src="https://www.pinclipart.com/picdir/middle/205-2059398_blinkk-en-mac-app-store-ninja-icon-transparent.png">
-                                    <div class="ownBubble own">
-                                        @item.content
-                                    </div>
-                                </div><span class="own">08:55</span>
-                            </div>
-                        }
+                    @if (item.userId == null)
+                    {
+                    <div class="bubbleWrapper">
+                    <div class="inlineContainer">
+                    <img class="inlineIcon" src="https://cdn1.iconfinder.com/data/icons/ninja-things-1/1772/ninja-simple-512.png">
+                    <div class="otherBubble other">
+                    @item.content
+                    </div>
+                    </div><span class="other">08:41</span>
+                    </div>
+                    }
+                    else
+                    {
+                    <div class="bubbleWrapper">
+                    <div class="inlineContainer own">
+                    <img class="inlineIcon" src="https://www.pinclipart.com/picdir/middle/205-2059398_blinkk-en-mac-app-store-ninja-icon-transparent.png">
+                    <div class="ownBubble own">
+                    @item.content
+                    </div>
+                    </div><span class="own">08:55</span>
+                    </div>
+                    }
                     }*@
                     <form>
                         <div class="form-actions no-color">
@@ -233,4 +232,3 @@
         </div>
     </div>
 </div>
-
