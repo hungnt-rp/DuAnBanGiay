@@ -542,6 +542,7 @@
                 success: function (result) {
                     var renderData = "<option></option>";
                     $.each(result, function (value) {
+
                         var date = result[value].expirationDate;
                         renderData += '<option value="' + result[value].id + '">' + result[value].name + '</option>';
                         renderData += '<option disabled style = "font-style:italic" > (Đơn Tối Thiểu ' + commasThousands(result[value].minimumOrder) + 'đ)' + '</option>'
@@ -600,7 +601,27 @@
             })
         });
 
+        function GetDataVoucherById(totalMoneyOrder) {
+            $.ajax({
+                url: "/Product/GetVoucher?totalMoneyOrder=" + totalMoneyOrder,
+                type: "GET",
+                success: function (result) {
+                    var renderData = "<option></option>";
+                    $.each(result, function (value) {
+                        var date = result[value].expirationDate;
+                        renderData += '<option value="' + result[value].id + '">' + result[value].name + '</option>';
+                        renderData += '<option disabled style = "font-style:italic" > (Đơn Tối Thiểu ' + commasThousands(result[value].minimumOrder) + 'đ)' + '</option>'
 
+                        if (result[value].discountForm == "%")
+                            renderData += '<option disabled style = "font-style:italic" > (Giảm tối đa ' + commasThousands(result[value].maximumDiscount) + 'đ)' + '</option>'
+
+                        renderData += '<option disabled style = "font-style:italic" > (HSD: ' + ConvertDate(date) + ')' + ' </option>'
+                        renderData += '<option disabled style="font-style:italic"></option>'
+                    });
+                    $("#selectVoucher").html(renderData)
+                }
+            })
+        }
 
         function ConvertDate(time) {
             var date = new Date(time);

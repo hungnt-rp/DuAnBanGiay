@@ -69,423 +69,438 @@
 @Html.Hidden("_order_paymentType", (int)Model.PaymentType)
 
 
-<div class="container">
-    <div>
-    <button type="button" onclick="document.location = '/Order/Index'"
-        class="btn btn-outline-dark m-1"><i class="fa fa-backward"
-        style="margin-right:10px;"></i>Quay lại
-    </button>
-</div>
-
 <div class="row">
-    <div class="panel panel-default">
-        <div class="panel-heading">
-            <!-- Thông tin thanh toán -->
-            <div class="modal-content justify-content-center" style="border-width:1px;">
-                <div class="panel-heading">
-                    <h5 class="panel-title text-center"
-                        style="background-color:#E5E5E5; text-align:left; height:40px; padding:10px 10px 10px 10px;">
-                        Thông tin thanh toán</h5>
-                </div>
-                <div class="modal-body">
+    <div>
+        <button type="button" onclick="document.location = '/Order/Index'"
+                class="btn btn-outline-dark m-1">
+            <i class="fa fa-backward"
+               style="margin-right:10px;"></i>Quay lại
+        </button>
+    </div>
 
-                    <div class="row" name="thongTinThanhToan" style="text-align:center;">
-                        <div class="col-md-2">
-                            <div class="form-group">
-                                <label
-                                    style="font-weight: bold; display: flex; justify-content: flex-start; align-items: flex-end; text-align: left;"
-                                    class="control-label col-sm-12">
-                                    Tổng tiền sản phẩm:
-                                </label>
-                                <div class="col-sm-12">
-                                    <input style="font-weight: bold" readonly type="text" id="totalMoneyProd"
-                                        value="@data.Sum(c => c.OrderDetail.TotalMoney).NullToDecimal().ToString("#,##0.##")"
-                                        placeholder="" class="form-control inputUpdateOrder" />
+    <div class="row">
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <!-- Thông tin thanh toán -->
+                <div class="modal-content justify-content-center" style="border-width:1px;">
+                    <div class="panel-heading">
+                        <h5 class="panel-title text-center"
+                            style="background-color:#E5E5E5; text-align:left; height:40px; padding:10px 10px 10px 10px;">
+                            Thông tin thanh toán
+                        </h5>
+                    </div>
+                    <div class="modal-body">
+
+                        <div class="row" name="thongTinThanhToan" style="text-align:center;">
+                            <div class="col-md-2">
+                                <div class="form-group">
+                                    <label style="font-weight: bold; display: flex; justify-content: flex-start; align-items: flex-end; text-align: left;"
+                                           class="control-label col-sm-12">
+                                        Tổng tiền sản phẩm:
+                                    </label>
+                                    <div class="col-sm-12">
+                                        <input style="font-weight: bold" readonly type="text" id="totalMoneyProd"
+                                               value="@data.Sum(c => c.OrderDetail.TotalMoney).NullToDecimal().ToString("#,##0.##")"
+                                               placeholder="" class="form-control inputUpdateOrder" />
+                                    </div>
                                 </div>
                             </div>
-                        </div>
-                        <div class="col-md-2">
-                            <div class="form-group">
-                                <label
-                                    style="font-weight: bold; display: flex; justify-content: flex-start; align-items: flex-end; text-align: left;"
-                                    class="control-label col-sm-12">
-                                    Mã giảm giá:
-                                </label>
-                                <div class="col-sm-12">
-                                    <input style="font-weight: bold" readonly type="text" value="@strVoucherId"
-                                        placeholder="" class="form-control inputUpdateOrder" />
+                            <div class="col-md-2">
+                                <div class="form-group">
+                                    <label style="font-weight: bold; display: flex; justify-content: flex-start; align-items: flex-end; text-align: left;"
+                                           class="control-label col-sm-12">
+                                        Mã giảm giá:
+                                    </label>
+                                    <div class="col-sm-12">
+                                        <input style="font-weight: bold" readonly type="text" value="@strVoucherId"
+                                               placeholder="" class="form-control inputUpdateOrder" />
+                                    </div>
                                 </div>
                             </div>
-                        </div>
-                        <div class="col-md-2">
-                            <div class="form-group">
-                                <label
-                                    style="font-weight: bold; display: flex; justify-content: flex-start; align-items: flex-end; text-align: left;"
-                                    class="control-label col-sm-12">
-                                    Mức giảm giá:
-                                </label>
-                                <div class="col-sm-12">
-                                    <input style="font-weight: bold" readonly type="text" id="cDiscountRate"
-                                        name="cDiscountRate"
-                                        value="@Model.DiscountRate.NullToDecimal().ToString("#,##0.##")" placeholder=""
-                                        class="form-control inputUpdateOrder" />
+                            <div class="col-md-2">
+                                <div class="form-group">
+                                    <label style="font-weight: bold; display: flex; justify-content: flex-start; align-items: flex-end; text-align: left;"
+                                           class="control-label col-sm-12">
+                                        Mức giảm giá:
+                                    </label>
+                                    <div class="col-sm-12">
+                                        <input style="font-weight: bold" readonly type="text" id="cDiscountRate"
+                                               name="cDiscountRate"
+                                               value="@Model.DiscountRate.NullToDecimal().ToString("#,##0.##")" placeholder=""
+                                               class="form-control inputUpdateOrder" />
+                                    </div>
                                 </div>
                             </div>
-                        </div>
-                        <div class="col-md-2">
-                            <div class="form-group">
-                                <label
-                                    style="font-weight: bold; display: flex; justify-content: flex-start; align-items: flex-end; text-align: left;"
-                                    class="control-label col-sm-12">
-                                    Phí giao hàng:
-                                </label>
-                                <div class="col-sm-12">
-                                    <input style="font-weight: bold" type="text" readonly id="cShippingFee"
-                                        name="cShippingFee"
-                                        value="@Model.ShippingFee.NullToDecimal().ToString("#,##0.##")" placeholder=""
-                                        class="form-control inputUpdateOrder" />
+                            <div class="col-md-2">
+                                <div class="form-group">
+                                    <label style="font-weight: bold; display: flex; justify-content: flex-start; align-items: flex-end; text-align: left;"
+                                           class="control-label col-sm-12">
+                                        Phí giao hàng:
+                                    </label>
+                                    <div class="col-sm-12">
+                                        <input style="font-weight: bold" type="text" readonly id="cShippingFee"
+                                               name="cShippingFee"
+                                               value="@Model.ShippingFee.NullToDecimal().ToString("#,##0.##")" placeholder=""
+                                               class="form-control inputUpdateOrder" />
+                                    </div>
                                 </div>
                             </div>
-                        </div>
-                        <div class="col-md-2">
-                            <div class="form-group">
-                                <label
-                                    style="font-weight: bold; display: flex; justify-content: flex-start; align-items: flex-end; text-align: left;"
-                                    class="control-label col-sm-12 ">
-                                    Tổng tiền thanh toán:
-                                </label>
-                                <div class="col-sm-12">
-                                    <input style="font-weight: bold; color: red; font-size:17px;" type="text" readonly id="cTotalMoney" name="cTotalMoney"
-                                           value="@Model.TotalMoney.NullToDecimal().ToString("#,##0.##")" placeholder=""
-                                           class="form-control inputUpdateOrder" />
+                            <div class="col-md-2">
+                                <div class="form-group">
+                                    <label style="font-weight: bold; display: flex; justify-content: flex-start; align-items: flex-end; text-align: left;"
+                                           class="control-label col-sm-12 ">
+                                        Tổng tiền thanh toán:
+                                    </label>
+                                    <div class="col-sm-12">
+                                        <input style="font-weight: bold; color: red; font-size:17px;" type="text" readonly id="cTotalMoney" name="cTotalMoney"
+                                               value="@Model.TotalMoney.NullToDecimal().ToString("#,##0.##")" placeholder=""
+                                               class="form-control inputUpdateOrder" />
+                                    </div>
                                 </div>
                             </div>
-                        </div>
-                        <div class="col-md-2">
-                            <div class="form-group">
-                                <label style="font-weight: bold; display: flex; justify-content: flex-start; align-items: flex-end; text-align: left;"
-                                       class="control-label col-sm-12">
-                                    Trạng thái:
-                                </label>
-                                <div class="col-sm-12 d-flex justify-content-right">
-                                    @{
-                                        switch ((int)OrderData.Status)
-                                        {
-                                            case 0:
-                                                <button type="button" class="btn btn-secondary">Chờ xác nhận</button>
-                                                break;
-                                            case 6:
-                                                <button type="button" class="btn btn-warning">Đã xác nhận</button>
-                                                break;
-                                            case 1:
-                                                <button type="button" class="btn btn-info">Đang vận chuyển</button>
-                                                break;
-                                            case 2:
-                                                <button type="button" class="btn btn-primary">Đang giao hàng</button>
-                                                break;
-                                            case 3:
-                                                <button type="button" class="btn btn-success">Đã hoàn thành</button>
-                                                break;
-                                            default:
-                                                <button type="button" class="btn btn-danger">Đã hủy</button>
-                                                break;
+                            <div class="col-md-2">
+                                <div class="form-group">
+                                    <label style="font-weight: bold; display: flex; justify-content: flex-start; align-items: flex-end; text-align: left;"
+                                           class="control-label col-sm-12">
+                                        Trạng thái:
+                                    </label>
+                                    <div class="col-sm-12 d-flex justify-content-right">
+                                        @{
+                                            switch ((int)OrderData.Status)
+                                            {
+                                                case 0:
+                                                    <button type="button" class="btn btn-secondary">Chờ xác nhận</button>
+                                                    break;
+                                                case 6:
+                                                    <button type="button" class="btn btn-warning">Đã xác nhận</button>
+                                                    break;
+                                                case 1:
+                                                    <button type="button" class="btn btn-info">Đang vận chuyển</button>
+                                                    break;
+                                                case 2:
+                                                    <button type="button" class="btn btn-primary">Đang giao hàng</button>
+                                                    break;
+                                                case 3:
+                                                    <button type="button" class="btn btn-success">Đã hoàn thành</button>
+                                                    break;
+                                                default:
+                                                    <button type="button" class="btn btn-danger">Đã hủy</button>
+                                                    break;
+                                            }
                                         }
-                                    }
+                                    </div>
                                 </div>
                             </div>
                         </div>
                     </div>
                 </div>
+                <br />
             </div>
-            <br />
-        </div>
-        <div class="panel-heading">
-            <!-- Thông tin trạng thái -->
-            <div class="modal-content justify-content-center" style="border-width:1px;">
-                <div class="panel-heading">
-                    <h5 class="panel-title text-center"
-                        style="background-color:#E5E5E5; text-align:left; height:40px; padding:10px 10px 10px 10px;">
-                       Cập nhập trạng thái hóa đơn</h5>
-                </div>
-                <div class="modal-body">
-                    <div class="row">
+            <div class="panel-heading">
+                <!-- Thông tin trạng thái -->
+                <div class="modal-content justify-content-center" style="border-width:1px;">
+                    <div class="panel-heading">
+                        <h5 class="panel-title text-center"
+                            style="background-color:#E5E5E5; text-align:left; height:40px; padding:10px 10px 10px 10px;">
+                            Cập nhập trạng thái hóa đơn
+                        </h5>
+                    </div>
+                    <div class="modal-body">
+                        <div class="row">
 
-    @if ((int)OrderData.Status != 6 && (int)OrderData.Status != 3 && (int)OrderData.Status != 1 && (int)OrderData.Status != 2 )
-    {
-        <button type="button" onclick="ConfirmOrder()" class="btn btn-outline-warning col-md-2 m-1"><i class="fas fa-check-square" style="margin-right:10px;"></i>Xác nhận đơn hàng</button>
-    }
-    @if ((int)OrderData.Status != 1 && (int)OrderData.Status != 3 && (int)OrderData.Status != 2)
-    {
-        <button type="button" onclick="DeliveryOrder()" class="btn btn-outline-info col-md-2 m-1"><i class="fa fa-truck" style="margin-right:10px;"></i>Đang vận chuyển</button>
-    }
-    @if ((int)OrderData.Status != 2 && (int)OrderData.Status != 3)
-    {
-        <button type="button" onclick="DangGiaoHang()" class="btn btn-outline-info col-md-2 m-1"><i class="fa fa-truck" style="margin-right:10px;"></i>Đang giao hàng</button>
-    }
-    @if ((int)OrderData.Status != 3)
-    {
-        <button type="button" onclick="CompleteOrder()" class="btn btn-outline-success col-md-2 m-1"><i class="fas fa-check-double" style="margin-right:10px;"></i>Hoàn thành đơn hàng</button>
-    }
-    @if ((int)OrderData.Status != 5 && (int)OrderData.Status != 3 && (int)OrderData.Status == 0)
-    {
-        <button type="button" onclick="CancelOrder()" class="btn btn-outline-danger col-md-2 m-1"><i class="fas fa-window-close" style="margin-right:10px;"></i>Hủy đơn hàng</button>
-    }
-</div>
-                </div>
-            </div>
-            <br />
-        </div>
-
-        
-        <div class="panel-body">
-            <div class="table-responsive" style="overflow-y: auto; max-height: 700px;">
-                <form id="buyFormData" asp-controller="Order" asp-action="ChangeInfoOrder" method="post"
-                    class="form-horizontal d-block">
-                    <input asp-for="Id" hidden="hidden" />
-                    <input asp-for="CustomerId" hidden="hidden" />
-                    <input asp-for="EmployeeId" hidden="hidden" />
-                    <input asp-for="DeliverId" hidden="hidden" />
-                    <input asp-for="OrderId" hidden="hidden" />
-                    <input asp-for="CreateDate" hidden="hidden" />
-                    <input asp-for="PaymentDate" hidden="hidden" />
-                    <input asp-for="OrderDetailJson" hidden="hidden" />
-                    <input asp-for="VoucherId" hidden="hidden" />
-                    <input asp-for="ShippingCountry" hidden="hidden" />
-
-                    <input asp-for="DiscountRate" hidden="hidden" />
-                    <input asp-for="ShippingFee" hidden="hidden" />
-                    <input asp-for="TotalMoney" hidden="hidden" />
-
-                    <input asp-for="ShippingCity" hidden="hidden" />
-                    <input asp-for="ShippingDistrict" hidden="hidden" />
-                    <input asp-for="ShippingTown" hidden="hidden" />
-
-                    <!-- Thông tin chúng-->
-                    <div class="modal-content justify-content-center" style="border-width:1px;">
-                        <div class="panel-heading">
-                            <h5 class="panel-title text-center"
-                                style="background-color:#E5E5E5; text-align:left; height:40px; padding:10px 10px 10px 10px;">
-                                Thông tin người đặt</h5>
+                            @if ((int)OrderData.Status != 6 && (int)OrderData.Status != 3 && (int)OrderData.Status != 1 && (int)OrderData.Status != 2)
+                            {
+                                <button type="button" onclick="ConfirmOrder()" class="btn btn-outline-warning col-md-2 m-1"><i class="fas fa-check-square" style="margin-right:10px;"></i>Xác nhận đơn hàng</button>
+                            }
+                            @if ((int)OrderData.Status != 1 && (int)OrderData.Status != 3 && (int)OrderData.Status != 2)
+                            {
+                                <button type="button" onclick="DeliveryOrder()" class="btn btn-outline-info col-md-2 m-1"><i class="fa fa-truck" style="margin-right:10px;"></i>Đang vận chuyển</button>
+                            }
+                            @if ((int)OrderData.Status != 2 && (int)OrderData.Status != 3)
+                            {
+                                <button type="button" onclick="DangGiaoHang()" class="btn btn-outline-info col-md-2 m-1"><i class="fa fa-truck" style="margin-right:10px;"></i>Đang giao hàng</button>
+                            }
+                            @if ((int)OrderData.Status != 3)
+                            {
+                                <button type="button" onclick="CompleteOrder()" class="btn btn-outline-success col-md-2 m-1"><i class="fas fa-check-double" style="margin-right:10px;"></i>Hoàn thành đơn hàng</button>
+                            }
+                            @if ((int)OrderData.Status != 5 && (int)OrderData.Status != 3 && (int)OrderData.Status == 0)
+                            {
+                                <button type="button" onclick="CancelOrder()" class="btn btn-outline-danger col-md-2 m-1"><i class="fas fa-window-close" style="margin-right:10px;"></i>Hủy đơn hàng</button>
+                            }
                         </div>
-                        <div class="modal-body">
+                    </div>
+                </div>
+                <br />
+            </div>
 
-                            <input type="text" id="idDeliveryAddress" name="idDeliveryAddress" value=""
-                                hidden="hidden" />
-                            <input type="text" id="cGiamGia" name="cGiamGia" value="" hidden="hidden" />
-                            <div class="row">
-                                <div class="col-md-3">
-                                    <div class="form-group">
-                                        <label>
-                                            Họ tên:<span style="color: red">(*)</span>
-                                        </label>
-                                        <div class="col-sm-12">
-                                            <input type="text" asp-for="ShippingFullName" placeholder=""
-                                                class="form-control" />
+
+            <div class="panel-body">
+                <div class="table-responsive" style="overflow-y: auto; max-height: 700px;">
+                    <form id="buyFormData" asp-controller="Order" asp-action="ChangeInfoOrder" method="post"
+                          class="form-horizontal d-block">
+                        <input asp-for="Id" hidden="hidden" />
+                        <input asp-for="CustomerId" hidden="hidden" />
+                        <input asp-for="EmployeeId" hidden="hidden" />
+                        <input asp-for="DeliverId" hidden="hidden" />
+                        <input asp-for="OrderId" hidden="hidden" />
+                        <input asp-for="CreateDate" hidden="hidden" />
+                        <input asp-for="PaymentDate" hidden="hidden" />
+                        <input asp-for="OrderDetailJson" hidden="hidden" />
+                        <input asp-for="VoucherId" hidden="hidden" />
+                        <input asp-for="ShippingCountry" hidden="hidden" />
+
+                        <input asp-for="DiscountRate" hidden="hidden" />
+                        <input asp-for="ShippingFee" hidden="hidden" />
+                        <input asp-for="TotalMoney" hidden="hidden" />
+
+                        <input asp-for="ShippingCity" hidden="hidden" />
+                        <input asp-for="ShippingDistrict" hidden="hidden" />
+                        <input asp-for="ShippingTown" hidden="hidden" />
+
+                        <!-- Thông tin chúng-->
+                        <div class="modal-content justify-content-center" style="border-width:1px;">
+                            <div class="panel-heading">
+                                <h5 class="panel-title text-center"
+                                    style="background-color:#E5E5E5; text-align:left; height:40px; padding:10px 10px 10px 10px;">
+                                    Thông tin người đặt
+                                </h5>
+                            </div>
+                            <div class="modal-body">
+
+                                <input type="text" id="idDeliveryAddress" name="idDeliveryAddress" value=""
+                                       hidden="hidden" />
+                                <input type="text" id="cGiamGia" name="cGiamGia" value="" hidden="hidden" />
+                                <div class="row">
+                                    <div class="col-md-3">
+                                        <div class="form-group">
+                                            <label>
+                                                Họ tên:<span style="color: red">(*)</span>
+                                            </label>
+                                            <div class="col-sm-12">
+                                                <input type="text" asp-for="ShippingFullName" placeholder=""
+                                                       class="form-control" />
+                                            </div>
                                         </div>
                                     </div>
-                                </div>
-                                <div class="col-md-3">
-                                    <div class="form-group">
-                                        <label>
-                                            Email:<span style="color: red">(*)</span>
-                                        </label>
-                                        <div class="col-sm-12">
-                                            <input type="text" asp-for="ShippingEmail" placeholder=""
-                                                class="form-control" />
+                                    <div class="col-md-3">
+                                        <div class="form-group">
+                                            <label>
+                                                Email:<span style="color: red">(*)</span>
+                                            </label>
+                                            <div class="col-sm-12">
+                                                <input type="text" asp-for="ShippingEmail" placeholder=""
+                                                       class="form-control" />
+                                            </div>
                                         </div>
                                     </div>
-                                </div>
-                                <div class="col-md-3">
-                                    <div class="form-group">
-                                        <label>
-                                            Số điện thoại:<span style="color: red">(*)</span>
-                                        </label>
-                                        <div class="col-sm-12">
-                                            <input type="text" asp-for="ShippingPhone" placeholder=""
-                                                class="form-control" />
+                                    <div class="col-md-3">
+                                        <div class="form-group">
+                                            <label>
+                                                Số điện thoại:<span style="color: red">(*)</span>
+                                            </label>
+                                            <div class="col-sm-12">
+                                                <input type="text" asp-for="ShippingPhone" placeholder=""
+                                                       class="form-control" />
+                                            </div>
                                         </div>
                                     </div>
+                                    <div class="col-md-3">
+                                        <div class="form-group">
+                                            <label>
+                                                Ngày đặt:<span style="color: red">(*)</span>
+                                            </label>
+                                            <div class="col-sm-12">
+                                                <input asp-for="CreateDate" type="date" maxlength="200"
+                                                       class="form-control" />
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <button type="button" class="btn btn-outline-success col-md-3 btnChange"
+                                            onclick="ChangeInfoOrderer()">
+                                        <i class="fas fa-check-double"
+                                           style="margin-right:10px;"></i>Lưu thay đổi thông tin người đặt
+                                    </button>
                                 </div>
-                                <div class="col-md-3">
-                                    <div class="form-group">
-                                        <label>
-                                            Ngày đặt:<span style="color: red">(*)</span>
-                                        </label>
-                                        <div class="col-sm-12">
-                                            <input asp-for="CreateDate" type="date" maxlength="200"
-                                                class="form-control" />
+                            </div>
+                        </div>
+                        <br />
+                        <!-- Tông tin địa chỉ-->
+                        <div class="modal-content justify-content-center" id="modalAddress" style="border-width:1px;">
+                            <div class="panel-heading">
+                                <h5 class="panel-title text-center"
+                                    style="background-color:#E5E5E5; text-align:left; height:40px; padding:10px 10px 10px 10px;">
+                                    Thông tin địa chỉ
+                                </h5>
+                            </div>
+                            <div class="modal-body">
+                                <div class="row">
+                                    <div class="col-md-3">
+                                        <div class="form-group">
+                                            <label>Tỉnh/Thành phố:</label>
+                                            <div class="col-sm-12">
+                                                <select id="selectProvince" class="form-select form-control">
+                                                    <option value="">@Model.ShippingCity</option>
+                                                </select>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-3">
+                                        <div class="form-group">
+                                            <label>Quận/Huyện:</label>
+                                            <div class="col-sm-12">
+                                                <select id="selectDistrict" class="form-select form-control">
+                                                    <option value="">@Model.ShippingDistrict</option>
+                                                </select>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-3">
+                                        <div class="form-group">
+                                            <label>Phường/Xã:</label>
+                                            <div class="col-sm-12">
+                                                <select onchange="CheckShip()" id="selectWards"
+                                                        class="form-select form-control">
+                                                    <option>@Model.ShippingTown</option>
+                                                </select>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-3">
+                                        <div class="form-group">
+                                            <label>
+                                                Địa chỉ chi tiết:<span style="color: red">(*)</span>
+                                            </label>
+                                            <div class="col-sm-12">
+                                                <input id="ShippingAddress" style="margin-top: -2px;" asp-for="ShippingAddress" placeholder=""
+                                                       class="form-control" />
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
                                 <button type="button" class="btn btn-outline-success col-md-3 btnChange"
-                                    onclick="ChangeInfoOrderer()"><i class="fas fa-check-double"
-                                        style="margin-right:10px;"></i>Lưu thay đổi thông tin người đặt</button>
+                                        onclick="SaveChangeAddress()">
+                                    <i class="fas fa-check-double" style="margin-right:10px;"></i>Thay đổi địa chỉ
+                                </button>
                             </div>
                         </div>
-                    </div>
-                    <br />
-                    <!-- Tông tin địa chỉ-->
-                    <div class="modal-content justify-content-center" id="modalAddress" style="border-width:1px;">
-                        <div class="panel-heading">
-                            <h5 class="panel-title text-center"
-                                style="background-color:#E5E5E5; text-align:left; height:40px; padding:10px 10px 10px 10px;">
-                                Thông tin địa chỉ</h5>
-                        </div>
-                        <div class="modal-body">
-                            <div class="row">
-                                <div class="col-md-3">
-                                    <div class="form-group">
-                                        <label>Tỉnh/Thành phố:</label>
-                                        <div class="col-sm-12">
-                                            <select id="selectProvince" class="form-select form-control">
-                                                <option value="">@Model.ShippingCity</option>
-                                            </select>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col-md-3">
-                                    <div class="form-group">
-                                        <label>Quận/Huyện:</label>
-                                        <div class="col-sm-12">
-                                            <select id="selectDistrict"  class="form-select form-control">
-                                                <option value="">@Model.ShippingDistrict</option>
-                                            </select>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col-md-3">
-                                    <div class="form-group">
-                                        <label>Phường/Xã:</label>
-                                        <div class="col-sm-12">
-                                            <select onchange="CheckShip()" id="selectWards"
-                                                    class="form-select form-control">
-                                                <option>@Model.ShippingTown</option>
-                                            </select>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col-md-3">
-                                    <div class="form-group">
-                                        <label>
-                                            Địa chỉ chi tiết:<span style="color: red">(*)</span>
-                                        </label>
-                                        <div class="col-sm-12">
-                                            <input id="ShippingAddress" style="margin-top: -2px;" asp-for="ShippingAddress" placeholder=""
-                                                class="form-control" />
-                                        </div>
-                                    </div>
-                                </div>
+                        <br />
+                        <!-- Danh sách sản phẩm-->
+                        <div class="modal-content justify-content-center" style="border-width:1px;">
+                            <div class="panel-heading">
+                                <h5 class="panel-title text-center"
+                                    style="background-color:#E5E5E5; text-align:left; height:40px; padding:10px 10px 10px 10px;">
+                                    Danh sách sản phẩm
+                                </h5>
                             </div>
-                            <button type="button" class="btn btn-outline-success col-md-3 btnChange"
-                                onclick="SaveChangeAddress()">
-                                <i class="fas fa-check-double" style="margin-right:10px;"></i>Thay đổi địa chỉ</button>
-                        </div>
-                    </div>
-                    <br />
-                    <!-- Danh sách sản phẩm-->
-                    <div class="modal-content justify-content-center" style="border-width:1px;">
-                        <div class="panel-heading">
-                            <h5 class="panel-title text-center"
-                                style="background-color:#E5E5E5; text-align:left; height:40px; padding:10px 10px 10px 10px;">
-                                Danh sách sản phẩm</h5>
-                        </div>
-                        <div class="modal-body">
-                            <div class="panel panel-default">
-                                <div class="panel-body">
-                                    <div class="table-responsive" style="overflow-y: auto; max-height: 700px;">
-                                        <table class="table table-bordered table-hover sticky-table tableprod">
-                                            <thead class="sticky-header">
-                                                <tr>
-                                                    <th>STT</th>
-                                                    <th>Hình ảnh</th>
-                                                    <th>Mã sản phẩm</th>
-                                                    <th>Tên sản phẩm</th>
-                                                    <th>Màu sắc</th>
-                                                    <th>Size</th>
-                                                    <th>Đơn giá</th>
-                                                    <th style="width:200px;">Số lượng</th>
-                                                    <th>Thành tiền</th>
-                                                    <th>Thao tác</th>
-                                                </tr>
-                                            </thead>
-                                            <tbody>
-                                                @if (Model != null)
-                                                {
-                                                    int index = 0;
-                                                    foreach (var item in data)
+                            <div class="modal-body">
+                                <div class="panel panel-default">
+                                    <div class="panel-body">
+                                        <div class="table-responsive" style="overflow-y: auto; max-height: 700px;">
+                                            <table class="table table-bordered table-hover sticky-table tableprod">
+                                                <thead class="sticky-header">
+                                                    <tr>
+                                                        <th>STT</th>
+                                                        <th>Hình ảnh</th>
+                                                        <th>Mã sản phẩm</th>
+                                                        <th>Tên sản phẩm</th>
+                                                        <th>Màu sắc</th>
+                                                        <th>Size</th>
+                                                        <th>Đơn giá</th>
+                                                        <th style="width:200px;">Số lượng</th>
+                                                        <th>Thành tiền</th>
+                                                        <th>Thao tác</th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody>
+                                                    @if (Model != null)
                                                     {
-                                                        index++;
-                                                        <tr>
-                                                            <td hidden><input class="itemOrderId" disabled hidden="hidden"
-                                                                    type="text"
-                                                                    value="@item.OrderDetail.OrderId.NullToString()"></td>
-                                                            <td hidden><input class="itemProdID" disabled hidden="hidden"
-                                                                    type="text"
-                                                                    value="@item.OrderDetail.ProductVariationId.NullToString()">
-                                                            </td>
-                                                            <td hidden><input class="itemQuantityInstock" disabled
-                                                                    hidden="hidden" type="text"
-                                                                    value="@(item.ProductVariation.QuantityInStock)"></td>
-                                                            <td hidden><input class="itemOriginalQuantityInstock" disabled
-                                                                    hidden="hidden" type="text"
-                                                                    value="@item.OrderDetail.Quantity"></td>
-                                                            <td>@(index)</td>
-                                                            <td><img style="width:70px;height:70px;"
-                                                                    src="~/images/@item.ProductVariation.Image.NullToString()" />
-                                                            </td>
-                                                            <td>@item.Product.ProductCode</td>
-                                                            <td>@item.Product.Name</td>
-                                                            <td>@item.Color.Name</td>
-                                                            <td>@item.Size.Code</td>
-                                                            <td>
-                                                                <input type="text"
-                                                               class="price align-right textr inputUpdateOrder form-control" disabled
-                                                                    maxlength="18"
-                                                                    value="@item.OrderDetail.Price.ToString("#,##0.##")" />
-                                                            </td>
-                                                            <td class="col-1" style="width:200px;">
-                                                                <div class="buttons_added ">
-                                                                    <input class="minus is-form inputUpdateOrder  btnChange" type="button"
-                                                                        value="-" style="width:20px;">
-                                                                    <input aria-label="quantity"
-                                                                        style="width: 120px; text-align:center;"
-                                                                   class="quantity inputUpdateOrder" type="text"
-                                                                        id="quantity" name="quantity"
-                                                                        value="@item.OrderDetail.Quantity" min="1" max="100000">
-                                                                    <input class="plus is-form inputUpdateOrder  btnChange" type="button"
-                                                                        value="+" style="width:20px;">
-                                                                </div>
-                                                            </td>
-                                                            <td>
-                                                                <input style="font-weight: bold"
-                                                               class="totalMoneyItem inputUpdateOrder form-control" disabled="disabled"
-                                                                    type="text"
-                                                                    value="@item.OrderDetail.TotalMoney.ToString("#,##0.##")">
-                                                            </td>
-                                                            <td>
-                                                                <button type="button" class="btn btn-danger btnChange"
-                                                                    onclick="RemoveProduct('@Model.Id', '@item.ProductVariation.Id')"><i
-                                                                        class="fa fa-trash"></i></button>
-                                                            </td>
-                                                        </tr>
+                                                        int index = 0;
+                                                        foreach (var item in data)
+                                                        {
+                                                            index++;
+                                                            <tr>
+                                                                <td hidden>
+                                                                    <input class="itemOrderId" disabled hidden="hidden"
+                                                                           type="text"
+                                                                           value="@item.OrderDetail.OrderId.NullToString()">
+                                                                </td>
+                                                                <td hidden>
+                                                                    <input class="itemProdID" disabled hidden="hidden"
+                                                                           type="text"
+                                                                           value="@item.OrderDetail.ProductVariationId.NullToString()">
+                                                                </td>
+                                                                <td hidden>
+                                                                    <input class="itemQuantityInstock" disabled
+                                                                           hidden="hidden" type="text"
+                                                                           value="@(item.ProductVariation.QuantityInStock)">
+                                                                </td>
+                                                                <td hidden>
+                                                                    <input class="itemOriginalQuantityInstock" disabled
+                                                                           hidden="hidden" type="text"
+                                                                           value="@item.OrderDetail.Quantity">
+                                                                </td>
+                                                                <td>@(index)</td>
+                                                                <td>
+                                                                    <img style="width:70px;height:70px;"
+                                                                         src="~/images/@item.ProductVariation.Image.NullToString()" />
+                                                                </td>
+                                                                <td>@item.Product.ProductCode</td>
+                                                                <td>@item.Product.Name</td>
+                                                                <td>@item.Color.Name</td>
+                                                                <td>@item.Size.Code</td>
+                                                                <td>
+                                                                    <input type="text"
+                                                                           class="price align-right textr inputUpdateOrder form-control" disabled
+                                                                           maxlength="18"
+                                                                           value="@item.OrderDetail.Price.ToString("#,##0.##")" />
+                                                                </td>
+                                                                <td class="col-1" style="width:200px;">
+                                                                    <div class="buttons_added ">
+                                                                        <input class="minus is-form inputUpdateOrder  btnChange" type="button"
+                                                                               value="-" style="width:20px;">
+                                                                        <input aria-label="quantity"
+                                                                               style="width: 120px; text-align:center;"
+                                                                               class="quantity inputUpdateOrder" type="text"
+                                                                               id="quantity" name="quantity"
+                                                                               value="@item.OrderDetail.Quantity" min="1" max="100000">
+                                                                        <input class="plus is-form inputUpdateOrder  btnChange" type="button"
+                                                                               value="+" style="width:20px;">
+                                                                    </div>
+                                                                </td>
+                                                                <td>
+                                                                    <input style="font-weight: bold"
+                                                                           class="totalMoneyItem inputUpdateOrder form-control" disabled="disabled"
+                                                                           type="text"
+                                                                           value="@item.OrderDetail.TotalMoney.ToString("#,##0.##")">
+                                                                </td>
+                                                                <td>
+                                                                    <button type="button" class="btn btn-danger btnChange"
+                                                                            onclick="RemoveProduct('@Model.Id', '@item.ProductVariation.Id')">
+                                                                        <i class="fa fa-trash"></i>
+                                                                    </button>
+                                                                </td>
+                                                            </tr>
+                                                        }
                                                     }
-                                                }
-                                            </tbody>
-                                        </table>
+                                                </tbody>
+                                            </table>
+                                        </div>
                                     </div>
                                 </div>
+                                <button type="button" class="btn btn-outline-success col-md-3 btnChange"
+                                        onclick="AddProdToOrder('@Model.Id')">
+                                    <i class="fas fa-check-double"
+                                       style="margin-right:10px;"></i>Thêm sản phẩm
+                                </button>
                             </div>
-                            <button type="button" class="btn btn-outline-success col-md-3 btnChange"
-                                onclick="AddProdToOrder('@Model.Id')"><i class="fas fa-check-double"
-                                    style="margin-right:10px;"></i>Thêm sản phẩm</button>
                         </div>
-                    </div>
-                    <br />
-                </form>
+                        <br />
+                    </form>
+                </div>
             </div>
         </div>
     </div>
-</div>
 </div>
 <script>
     $(document).ready(function () {
@@ -512,12 +527,12 @@
                             ChangeQuantity($(this));
                         }
                     }
-                    else{
-                            var _Originalquantity = parseInt($(this).parents("tr").find("input[type=text].itemOriginalQuantityInstock").val()) || 0;
-                            $(this).val(_Originalquantity);
+                    else {
+                        var _Originalquantity = parseInt($(this).parents("tr").find("input[type=text].itemOriginalQuantityInstock").val()) || 0;
+                        $(this).val(_Originalquantity);
                     }
                 });
-            
+
         });
 
 
