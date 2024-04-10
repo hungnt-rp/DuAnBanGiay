@@ -73,6 +73,44 @@ GProject.Data.DomainClass.Brand, EvaluateCommentDTO, decimal, int, Customer>
 <link rel="stylesheet" type="text/css" href="/UserContent/styles/categories_styles.css">
 <link href="/css/product_details.css" rel="stylesheet">
 <link href="/AdminContent/css/style.min.css" rel="stylesheet">
+<style>
+
+    .commentBox {
+        background-color: #efefef;
+        padding: 10px;
+        border-radius: 10px;
+    }
+
+    .starFade {
+        background-image: url("/images/saotrang1.png");
+        width: 30px;
+        height: 30px;
+        display: inline-block;
+        cursor: pointer;
+    }
+
+    .starFadeN {
+        background-image: url("/images/saotrang1.png");
+        width: 30px;
+        height: 30px;
+        display: inline-block;
+    }
+
+    .starGlow {
+        background-image: url("/images/sao_vang1.png");
+        min-width: 30px;
+        min-height: 30px;
+        display: inline-block;
+        cursor: pointer;
+    }
+
+    .starGlowN {
+        background-image: url("/images/sao_vang1.png");
+        width: 30px;
+        height: 30px;
+        display: inline-block;
+    }
+</style>
 <div style="margin-top: 10px;">
 
     @if (@ViewData["Mess"] != null)
@@ -289,7 +327,7 @@ GProject.Data.DomainClass.Brand, EvaluateCommentDTO, decimal, int, Customer>
                         </div>
                         <div class="col-md-11">
                             <i style="margin-right: 30px; vertical-align: top;">@cusInfo.Name.NullToString()</i>
-                            <i style="margin-right: 30px; vertical-align: top;">@item.CreateDate</i>
+                            <i style="margin-right: 30px; vertical-align: top;">@item.CreateDate.ToString("dd/MM/yyyy")</i>
                             @for (int i = 0; i < item.Rating; i++)
                             {
                                 <span class="starGlowN"></span>
