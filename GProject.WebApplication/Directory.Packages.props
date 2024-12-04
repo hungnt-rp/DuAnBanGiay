@@ -1,0 +1,35 @@
+<Project>
+  <PropertyGroup>
+    <ManagePackageVersionsCentrally>true</ManagePackageVersionsCentrally>
+    <CentralPackageTransitivePinningEnabled>false</CentralPackageTransitivePinningEnabled>
+    <NoWarn>$(NoWarn);NU1507</NoWarn>
+  </PropertyGroup>
+  <ItemGroup>
+    <PackageVersion Include="AspNetCoreHero.ToastNotification" Version="1.1.0" />
+    <PackageVersion Include="EasyNetQ" Version="7.5.0" />
+    <PackageVersion Include="Google.Apis.Auth" Version="1.68.0" />
+    <PackageVersion Include="IdentityServer4" Version="4.1.2" />
+    <PackageVersion Include="IdentityServer4.AspNetIdentity" Version="4.1.2" />
+    <PackageVersion Include="Microsoft.AspNetCore.Authentication.Google" Version="9.0.0" />
+    <PackageVersion Include="Microsoft.AspNetCore.Authentication.JwtBearer" Version="9.0.0" />
+    <PackageVersion Include="Microsoft.AspNetCore.Identity.EntityFrameworkCore" Version="9.0.0" />
+    <PackageVersion Include="Microsoft.AspNetCore.Mvc.Razor.RuntimeCompilation" Version="9.0.0" />
+    <PackageVersion Include="Microsoft.EntityFrameworkCore" Version="9.0.0" />
+    <PackageVersion Include="Microsoft.EntityFrameworkCore.Design" Version="9.0.0" />
+    <PackageVersion Include="Microsoft.EntityFrameworkCore.InMemory" Version="9.0.0" />
+    <PackageVersion Include="Microsoft.EntityFrameworkCore.SqlServer" Version="9.0.0" />
+    <PackageVersion Include="Microsoft.EntityFrameworkCore.Tools" Version="9.0.0" />
+    <PackageVersion Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="9.0.0" />
+    <PackageVersion Include="Newtonsoft.Json" Version="13.0.3" />
+    <PackageVersion Include="Quartz" Version="3.6.2" />
+    <PackageVersion Include="Quartz.AspNetCore" Version="3.6.2" />
+    <PackageVersion Include="Quartz.Extensions.DependencyInjection" Version="3.6.2" />
+    <PackageVersion Include="Quartz.Jobs" Version="3.6.2" />
+    <PackageVersion Include="RabbitMQ.Client" Version="6.5.0" />
+    <PackageVersion Include="RestSharp" Version="108.0.3" />
+    <PackageVersion Include="Swashbuckle.AspNetCore" Version="7.1.0" />
+    <PackageVersion Include="Twilio" Version="5.60.0" />
+    <PackageVersion Include="Twilio.AspNet.Core" Version="5.37.2" />
+    <PackageVersion Include="X.PagedList.Mvc.Core" Version="8.4.7" />
+  </ItemGroup>
+</Project>

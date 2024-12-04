@@ -1,6 +1,5 @@
 ﻿@*@model GProject.WebApplication.Models.OrderDto*@
 @model X.PagedList.IPagedList<GProject.Data.DomainClass.Order>
-@addTagHelper *, PagedList.Core.Mvc
 @addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
 @using GProject.WebApplication.Models
 @using GProject.Api.MyServices.Services;
@@ -298,7 +297,7 @@
                     <span id="pName"></span>
                 </div>
                 <div class="modal-footer" style="margin-top: -20px">
-                    <button type="button" class="btn btn-sm btn-default btn-dimiss-modal" onclick="btnClose()"
+                    <button type="button" class="btn btn-sm btn-default btn-dimiss-modal" onclick="btnClose()">
                         <i class="fa fa-times"></i> Đóng
                     </button>
                 </div>

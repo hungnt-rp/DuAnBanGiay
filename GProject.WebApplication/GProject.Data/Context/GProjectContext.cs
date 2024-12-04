@@ -3,8 +3,10 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+
 using GProject.Data.Configurations;
 using GProject.Data.DomainClass;
+
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
@@ -24,7 +26,7 @@ namespace GProject.Data.Context
             //            optionsBuilder.UseSqlServer(@"Data Source=HP\SQLEXPRESS;Initial Catalog=DB_Du_An_Ban_Giay;Integrated Security=True");
             //            //optionsBuilder.UseSqlServer(@"Data Source=DESKTOP-CAAAC2V;Initial Catalog=DB_Du_An;Integrated Security=True");
             //=======
-            optionsBuilder.UseSqlServer(@"Data Source=HP\SQLEXPRESS;Initial Catalog=DB_Du_An_Ban_Giay;Integrated Security=True");
+            optionsBuilder.UseSqlServer(@"Data Source=desktop-0l24d7n;Initial Catalog=DB_Du_An_Ban_Giay;Trusted_Connection=True;TrustServerCertificate=True;");
 
             //>>>>>>> Stashed changes
 
@@ -60,7 +62,7 @@ namespace GProject.Data.Context
         public DbSet<Slide> Slides { get; set; }
         public DbSet<ViewHistory> ViewHistories { get; set; }
         public DbSet<FavoriteProduct> FavoriteProducts { get; set; }
-        public DbSet<DeliveryAddress>  DeliveryAddresses { get; set; }
+        public DbSet<DeliveryAddress> DeliveryAddresses { get; set; }
         public DbSet<Voucher> Vouchers { get; set; }
         public DbSet<Message> Messages { get; set; }
         protected override void OnModelCreating(ModelBuilder modelBuilder)

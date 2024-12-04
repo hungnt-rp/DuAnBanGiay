@@ -1,4 +1,6 @@
 ﻿﻿@using GProject.Data.Enums;
+@using GProject.Data.Enums
+@using Microsoft.AspNetCore.Mvc.TagHelpers
 @model GProject.WebApplication.Models.OrderDTO
 @addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
 @{
@@ -364,8 +366,8 @@
                 }
             </ul>
         }
-    </div> *@
-</div>
+    </div> 
+</div>*@
 
 <script asp-append-version="true">
     $(document).ready(function () {

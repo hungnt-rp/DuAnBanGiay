@@ -1,21 +1,14 @@
-using GProject.WebApplication.Services.IServices;
-using GProject.WebApplication.Services;
-using Microsoft.AspNetCore.Authentication.Cookies;
-using Microsoft.AspNetCore.Authentication.Google;
-using Microsoft.AspNetCore.Identity;
-using Microsoft.Extensions.Options;
-using GProject.Data.DomainClass;
-using GProject.Data.Context;
-using GProject.WebApplication.Services;
-using System.Configuration;
-using RabbitMQ.Client;
-using System.Net.Mail;
-using System.Net;
-using System.Web.Http;
-using GProject.WebApplication.Helpers;
-using static IdentityModel.ClaimComparer;
 using AspNetCoreHero.ToastNotification;
+
+using GProject.Data.Context;
+using GProject.Data.DomainClass;
+using GProject.WebApplication.Services;
+using GProject.WebApplication.Services.IServices;
+
 using Logistics.WebAppAdmin.HubConfig;
+
+using Microsoft.AspNetCore.Authentication.Cookies;
+using Microsoft.AspNetCore.Identity;
 
 namespace YourNamespace
 {
@@ -28,7 +21,7 @@ namespace YourNamespace
             _quartzService = new QuartzService();
             _quartzService.Start();
             var host = CreateHostBuilder(args).Build();
-            host.Run();           
+            host.Run();
         }
 
         public static IHostBuilder CreateHostBuilder(string[] args) =>
@@ -73,17 +66,17 @@ namespace YourNamespace
                 yy.ClientId = "157635440787-v046f76b5rm5h0dfreqic0ams7cn0qj1.apps.googleusercontent.com";
                 yy.ClientSecret = "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";
                 yy.SignInScheme = IdentityConstants.ExternalScheme;
-				yy.Events.OnRedirectToAuthorizationEndpoint = context =>
-				{
-					context.Response.Redirect(context.RedirectUri + "&prompt=consent");
-					return Task.CompletedTask;
-				};
-			});
+                yy.Events.OnRedirectToAuthorizationEndpoint = context =>
+                {
+                    context.Response.Redirect(context.RedirectUri + "&prompt=consent");
+                    return Task.CompletedTask;
+                };
+            });
             services.AddSignalR();
             services.AddRazorPages()
-	.AddRazorRuntimeCompilation();
-			services.AddScoped<IVnPayService, VnPayService>();
-			services.AddAuthorization();
+    .AddRazorRuntimeCompilation();
+            services.AddScoped<IVnPayService, VnPayService>();
+            services.AddAuthorization();
             services.AddIdentity<Customer, IdentityRole>()
                 .AddEntityFrameworkStores<GProjectContext>()
                 .AddDefaultTokenProviders();
@@ -107,12 +100,12 @@ namespace YourNamespace
                 app.UseHsts();
             }
 
-			app.ApplicationServices
-				.CreateScope()
-				.ServiceProvider
-				.GetRequiredService<IWebHostEnvironment>();
+            app.ApplicationServices
+                .CreateScope()
+                .ServiceProvider
+                .GetRequiredService<IWebHostEnvironment>();
 
-			app.UseHttpsRedirection();
+            app.UseHttpsRedirection();
             app.UseStaticFiles();
 
             app.UseRouting();

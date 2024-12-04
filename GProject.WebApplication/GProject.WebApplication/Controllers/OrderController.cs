@@ -1,14 +1,18 @@
-﻿using GProject.Data.DomainClass;
+﻿using System.Net;
+using System.Net.Mail;
+
+using GProject.Data.DomainClass;
+using GProject.Data.Enums;
+using GProject.Data.MyRepositories.IRepositories;
 using GProject.WebApplication.Helpers;
 using GProject.WebApplication.Models;
-using Microsoft.AspNetCore.Mvc;
-using Newtonsoft.Json;
-using GProject.Data.MyRepositories.IRepositories;
-using System.Net.Mail;
-using System.Net;
-using GProject.Data.Enums;
 using GProject.WebApplication.Models.Payments;
 using GProject.WebApplication.Services.IServices;
+
+using Microsoft.AspNetCore.Mvc;
+
+using Newtonsoft.Json;
+
 using X.PagedList;
 
 namespace GProject.WebApplication.Controllers
@@ -730,7 +734,7 @@ namespace GProject.WebApplication.Controllers
                     var lstOrder = await Commons.GetAll<Order>(String.Concat(Commons.mylocalhost, "Order/order-accomplished?id=" + accomplished));
                     return RedirectToAction("ViewOrderCustomer", "Order");
                 }
-                if (canceled.HasValue)
+                else //(canceled.HasValue)
                 {
                     var order = orderRepository.GetAll().Where(c => c.Id == canceled).FirstOrDefault();
                     var LstorderDetail = orderDetailRepository.GetAll().Where(c => c.OrderId == order.Id).ToList();
@@ -738,7 +742,7 @@ namespace GProject.WebApplication.Controllers
                     var lstOrder = await Commons.GetAll<Order>(String.Concat(Commons.mylocalhost, "Order/order-canceled?id=" + canceled));
                     return RedirectToAction("ViewOrderCustomer", "Order");
                 }
-                return View();
+                //return View();
             }
             catch (Exception)
             {
@@ -805,7 +809,7 @@ namespace GProject.WebApplication.Controllers
                         lstOrder = lstOrder.ToList();
                         break;
                     default:
-                        lstOrder = lstOrder.ToList(); 
+                        lstOrder = lstOrder.ToList();
                         break;
                 }
 

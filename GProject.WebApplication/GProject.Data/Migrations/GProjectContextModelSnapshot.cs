@@ -17,10 +17,10 @@ namespace GProject.Data.Migrations
         {
 #pragma warning disable 612, 618
             modelBuilder
-                .HasAnnotation("ProductVersion", "6.0.12")
+                .HasAnnotation("ProductVersion", "9.0.0")
                 .HasAnnotation("Relational:MaxIdentifierLength", 128);
 
-            SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder, 1L, 1);
+            SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
 
             modelBuilder.Entity("GProject.Data.DomainClass.AppRoles", b =>
                 {
@@ -79,11 +79,11 @@ namespace GProject.Data.Migrations
 
             modelBuilder.Entity("GProject.Data.DomainClass.Brand", b =>
                 {
-                    b.Property<int?>("Id")
+                    b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int");
 
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int?>("Id"), 1L, 1);
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
                     b.Property<string>("Description")
                         .HasColumnType("nvarchar(max)");
@@ -110,7 +110,7 @@ namespace GProject.Data.Migrations
 
             modelBuilder.Entity("GProject.Data.DomainClass.Cart", b =>
                 {
-                    b.Property<Guid?>("Id")
+                    b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uniqueidentifier")
                         .HasDefaultValueSql("(newid())");
@@ -147,10 +147,10 @@ namespace GProject.Data.Migrations
 
             modelBuilder.Entity("GProject.Data.DomainClass.CartDetail", b =>
                 {
-                    b.Property<Guid?>("CartId")
+                    b.Property<Guid>("CartId")
                         .HasColumnType("uniqueidentifier");
 
-                    b.Property<Guid?>("ProductVariationId")
+                    b.Property<Guid>("ProductVariationId")
                         .HasColumnType("uniqueidentifier");
 
                     b.Property<DateTime>("CreateDate")
@@ -162,7 +162,7 @@ namespace GProject.Data.Migrations
 
                     b.Property<decimal>("Price")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("decimal(20,0)")
+                        .HasColumnType("decimal(20, 0)")
                         .HasDefaultValueSql("((0))");
 
                     b.Property<int>("Quantity")
@@ -179,7 +179,7 @@ namespace GProject.Data.Migrations
                         .HasColumnType("datetime2");
 
                     b.Property<decimal>("ToatlMoney")
-                        .HasColumnType("decimal(20,0)");
+                        .HasColumnType("decimal(20, 0)");
 
                     b.HasKey("CartId", "ProductVariationId");
 
@@ -190,7 +190,7 @@ namespace GProject.Data.Migrations
 
             modelBuilder.Entity("GProject.Data.DomainClass.Category", b =>
                 {
-                    b.Property<Guid?>("Id")
+                    b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uniqueidentifier")
                         .HasDefaultValueSql("(newid())");
@@ -221,11 +221,11 @@ namespace GProject.Data.Migrations
 
             modelBuilder.Entity("GProject.Data.DomainClass.Color", b =>
                 {
-                    b.Property<int?>("Id")
+                    b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int");
 
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int?>("Id"), 1L, 1);
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
                     b.Property<DateTime>("CreateOrUpdate")
                         .HasColumnType("datetime2");
@@ -256,7 +256,7 @@ namespace GProject.Data.Migrations
 
             modelBuilder.Entity("GProject.Data.DomainClass.Contact", b =>
                 {
-                    b.Property<Guid?>("Id")
+                    b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uniqueidentifier")
                         .HasDefaultValueSql("(newid())");
@@ -295,7 +295,7 @@ namespace GProject.Data.Migrations
 
             modelBuilder.Entity("GProject.Data.DomainClass.Customer", b =>
                 {
-                    b.Property<Guid?>("Id")
+                    b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uniqueidentifier")
                         .HasDefaultValueSql("(newid())");
@@ -399,7 +399,7 @@ namespace GProject.Data.Migrations
 
             modelBuilder.Entity("GProject.Data.DomainClass.Deliver", b =>
                 {
-                    b.Property<Guid?>("Id")
+                    b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uniqueidentifier")
                         .HasDefaultValueSql("(newid())");
@@ -503,7 +503,7 @@ namespace GProject.Data.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int");
 
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
                     b.Property<string>("Address")
                         .IsRequired()
@@ -562,7 +562,7 @@ namespace GProject.Data.Migrations
 
             modelBuilder.Entity("GProject.Data.DomainClass.Employee", b =>
                 {
-                    b.Property<Guid?>("Id")
+                    b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uniqueidentifier")
                         .HasDefaultValueSql("(newid())");
@@ -677,7 +677,7 @@ namespace GProject.Data.Migrations
 
             modelBuilder.Entity("GProject.Data.DomainClass.Evaluate", b =>
                 {
-                    b.Property<Guid?>("Id")
+                    b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uniqueidentifier")
                         .HasDefaultValueSql("(newid())");
@@ -711,10 +711,10 @@ namespace GProject.Data.Migrations
 
             modelBuilder.Entity("GProject.Data.DomainClass.FavoriteProduct", b =>
                 {
-                    b.Property<Guid?>("CustomerId")
+                    b.Property<Guid>("CustomerId")
                         .HasColumnType("uniqueidentifier");
 
-                    b.Property<Guid?>("ProductId")
+                    b.Property<Guid>("ProductId")
                         .HasColumnType("uniqueidentifier");
 
                     b.Property<DateTime>("CreateDate")
@@ -733,7 +733,7 @@ namespace GProject.Data.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int");
 
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
                     b.Property<string>("content")
                         .IsRequired()
@@ -741,6 +741,9 @@ namespace GProject.Data.Migrations
 
                     b.Property<bool?>("isAdmin")
                         .HasColumnType("bit");
+
+                    b.Property<string>("name")
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<DateTime>("sendDate")
                         .HasColumnType("datetime2");
@@ -758,7 +761,7 @@ namespace GProject.Data.Migrations
 
             modelBuilder.Entity("GProject.Data.DomainClass.Order", b =>
                 {
-                    b.Property<Guid?>("Id")
+                    b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uniqueidentifier")
                         .HasDefaultValueSql("(newid())");
@@ -827,7 +830,7 @@ namespace GProject.Data.Migrations
 
                     b.Property<decimal?>("ShippingFee")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("decimal(20,0)")
+                        .HasColumnType("decimal(20, 0)")
                         .HasDefaultValueSql("((0))");
 
                     b.Property<string>("ShippingFullName")
@@ -851,7 +854,7 @@ namespace GProject.Data.Migrations
                         .HasDefaultValueSql("((0))");
 
                     b.Property<decimal>("TotalMoney")
-                        .HasColumnType("decimal(20,0)");
+                        .HasColumnType("decimal(20, 0)");
 
                     b.Property<DateTime>("UpdateDate")
                         .HasColumnType("datetime2");
@@ -874,15 +877,15 @@ namespace GProject.Data.Migrations
 
             modelBuilder.Entity("GProject.Data.DomainClass.OrderDetail", b =>
                 {
-                    b.Property<Guid?>("OrderId")
+                    b.Property<Guid>("OrderId")
                         .HasColumnType("uniqueidentifier");
 
-                    b.Property<Guid?>("ProductVariationId")
+                    b.Property<Guid>("ProductVariationId")
                         .HasColumnType("uniqueidentifier");
 
                     b.Property<decimal>("Price")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("decimal(20,0)")
+                        .HasColumnType("decimal(20, 0)")
                         .HasDefaultValueSql("((0))");
 
                     b.Property<int>("Quantity")
@@ -896,7 +899,7 @@ namespace GProject.Data.Migrations
                         .HasDefaultValueSql("((0))");
 
                     b.Property<decimal>("TotalMoney")
-                        .HasColumnType("decimal(20,0)");
+                        .HasColumnType("decimal(20, 0)");
 
                     b.HasKey("OrderId", "ProductVariationId");
 
@@ -907,7 +910,7 @@ namespace GProject.Data.Migrations
 
             modelBuilder.Entity("GProject.Data.DomainClass.Posts", b =>
                 {
-                    b.Property<Guid?>("Id")
+                    b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uniqueidentifier")
                         .HasDefaultValueSql("(newid())");
@@ -951,7 +954,7 @@ namespace GProject.Data.Migrations
 
             modelBuilder.Entity("GProject.Data.DomainClass.Product", b =>
                 {
-                    b.Property<Guid?>("Id")
+                    b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uniqueidentifier")
                         .HasDefaultValueSql("(newid())");
@@ -975,7 +978,7 @@ namespace GProject.Data.Migrations
 
                     b.Property<decimal>("ImportPrice")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("decimal(20,0)")
+                        .HasColumnType("decimal(20, 0)")
                         .HasDefaultValueSql("((0))");
 
                     b.Property<int>("LikeCount")
@@ -990,7 +993,7 @@ namespace GProject.Data.Migrations
 
                     b.Property<decimal>("Price")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("decimal(20,0)")
+                        .HasColumnType("decimal(20, 0)")
                         .HasDefaultValueSql("((0))");
 
                     b.Property<string>("ProductCode")
@@ -1026,7 +1029,7 @@ namespace GProject.Data.Migrations
 
             modelBuilder.Entity("GProject.Data.DomainClass.ProductVariation", b =>
                 {
-                    b.Property<Guid?>("Id")
+                    b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uniqueidentifier")
                         .HasDefaultValueSql("(newid())");
@@ -1067,7 +1070,7 @@ namespace GProject.Data.Migrations
 
             modelBuilder.Entity("GProject.Data.DomainClass.Promotion", b =>
                 {
-                    b.Property<Guid?>("Id")
+                    b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uniqueidentifier")
                         .HasDefaultValueSql("(newid())");
@@ -1093,7 +1096,7 @@ namespace GProject.Data.Migrations
 
                     b.Property<decimal>("DiscountRate")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("decimal(20,0)")
+                        .HasColumnType("decimal(20, 0)")
                         .HasDefaultValueSql("((0))");
 
                     b.Property<DateTime>("EndDate")
@@ -1135,20 +1138,20 @@ namespace GProject.Data.Migrations
 
             modelBuilder.Entity("GProject.Data.DomainClass.PromotionDetail", b =>
                 {
-                    b.Property<Guid?>("PromotionId")
+                    b.Property<Guid>("PromotionId")
                         .HasColumnType("uniqueidentifier");
 
-                    b.Property<Guid?>("ProductId")
+                    b.Property<Guid>("ProductId")
                         .HasColumnType("uniqueidentifier");
 
                     b.Property<decimal>("CurrentPrice")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("decimal(20,0)")
+                        .HasColumnType("decimal(20, 0)")
                         .HasDefaultValueSql("((0))");
 
                     b.Property<decimal>("InitialPrice")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("decimal(20,0)")
+                        .HasColumnType("decimal(20, 0)")
                         .HasDefaultValueSql("((0))");
 
                     b.Property<int>("Status")
@@ -1165,7 +1168,7 @@ namespace GProject.Data.Migrations
 
             modelBuilder.Entity("GProject.Data.DomainClass.SendMail", b =>
                 {
-                    b.Property<Guid?>("Id")
+                    b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uniqueidentifier")
                         .HasDefaultValueSql("(newid())");
@@ -1222,11 +1225,11 @@ namespace GProject.Data.Migrations
 
             modelBuilder.Entity("GProject.Data.DomainClass.Size", b =>
                 {
-                    b.Property<int?>("Id")
+                    b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int");
 
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int?>("Id"), 1L, 1);
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
                     b.Property<string>("Code")
                         .IsRequired()
@@ -1250,7 +1253,7 @@ namespace GProject.Data.Migrations
 
             modelBuilder.Entity("GProject.Data.DomainClass.Slide", b =>
                 {
-                    b.Property<Guid?>("Id")
+                    b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uniqueidentifier")
                         .HasDefaultValueSql("(newid())");
@@ -1293,10 +1296,10 @@ namespace GProject.Data.Migrations
 
             modelBuilder.Entity("GProject.Data.DomainClass.ViewHistory", b =>
                 {
-                    b.Property<Guid?>("CustomerId")
+                    b.Property<Guid>("CustomerId")
                         .HasColumnType("uniqueidentifier");
 
-                    b.Property<Guid?>("ProductId")
+                    b.Property<Guid>("ProductId")
                         .HasColumnType("uniqueidentifier");
 
                     b.Property<DateTime>("DateView")
@@ -1315,7 +1318,7 @@ namespace GProject.Data.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int");
 
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
                     b.Property<DateTime>("CreateDate")
                         .HasColumnType("datetime2");
@@ -1389,7 +1392,7 @@ namespace GProject.Data.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int");
 
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
                     b.Property<string>("ClaimType")
                         .HasColumnType("nvarchar(max)");
@@ -1411,7 +1414,7 @@ namespace GProject.Data.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int");
 
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
                     b.Property<string>("ClaimType")
                         .HasColumnType("nvarchar(max)");
@@ -1430,12 +1433,14 @@ namespace GProject.Data.Migrations
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserLogin<string>", b =>
                 {
                     b.Property<string>("LoginProvider")
+                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("ProviderDisplayName")
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("ProviderKey")
+                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("UserId")
@@ -1458,9 +1463,11 @@ namespace GProject.Data.Migrations
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserToken<string>", b =>
                 {
                     b.Property<string>("LoginProvider")
+                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Name")
+                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("UserId")

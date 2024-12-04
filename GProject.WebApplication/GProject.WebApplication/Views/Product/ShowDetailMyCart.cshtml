@@ -169,7 +169,7 @@
                                                 <th>Số lượng</th>
                                                 <th>Thành tiền</th>
                                                 <th style="width: 40px; text-align: center">
-                                                    @Html.CheckBox("ckbAll", new { style="vertical-align:middle;"})
+                                                    @Html.CheckBox("ckbAll", new { style = "vertical-align:middle;" })
                                                 </th>
                                             </tr>
                                         </thead>
@@ -353,11 +353,11 @@
                                                 @{
                                                     int PaymentType = 0;
                                                 }
-                                                @Html.DropDownList("PaymentType",new[]
-                                                {
+                                                @Html.DropDownList("PaymentType", new[]
+                                                         {
                                                 new SelectListItem{Text="Thanh toán khi nhận hàng", Value="0", Selected= (PaymentType== 0)},
                                                 new SelectListItem{Text="Thanh toán khi đặt hàng", Value="1", Selected= (PaymentType== 1)},
-                                                }, new { @name = "PaymentType", @class="searchText form-control select"})
+                                                }, new { @name = "PaymentType", @class = "searchText form-control select" })
                                             </div>
                                         </div>
                                     </div>
@@ -390,39 +390,41 @@
                                 </div>
                                 <div class="form-group row">
                                     <div class="form-group row" style="margin-top: 15px;">
-                                    <div class="form-group row">
-                                        <div class="col-sm-9">
-                                            <label class="control-label col-md-12"><label>Giảm giá:</label></label>
+                                        <div class="form-group row">
+                                            <div class="col-sm-9">
+                                                <label class="control-label col-md-12"><label>Giảm giá:</label></label>
+                                            </div>
+                                            <div class="col-sm-3">
+                                                <p><label>- </label> <label id="txtGiamGia">0</label><label style="margin-left: 5px;">đ</label></p>
+                                            </div>
                                         </div>
-                                        <div class="col-sm-3">
-                                            <p><label>- </label> <label id="txtGiamGia">0</label><label style="margin-left: 5px;">đ</label></p>
+                                        <div class="form-group row">
+                                            <div class="col-sm-9">
+                                                <label class="control-label col-md-12"><label>Tổng tiền sản phẩm:</label></label>
+                                            </div>
+                                            <div class="col-sm-3">
+                                                <p><label id="txtTotalProduct"></label><label style="margin-left: 5px;">đ</label></p>
+                                            </div>
                                         </div>
-                                    </div>
-                                    <div class="form-group row">
-                                        <div class="col-sm-9">
-                                            <label class="control-label col-md-12"><label>Tổng tiền sản phẩm:</label></label>
-                                        </div>
-                                        <div class="col-sm-3">
-                                            <p><label id="txtTotalProduct"></label><label style="margin-left: 5px;">đ</label></p>
-                                        </div>
-                                    </div>
-                                    <div class="form-group row">
-                                        <div class="col-sm-9">
-                                            <h5><label class="control-label col-md-12"><label>Tổng tiền thanh toán:</label></label></h5>
-                                        </div>
-                                        <div class="col-sm-3">
-                                            <h5><label style="color:red;" id="textTotalMoney"></label><label style="margin-left: 5px;color:red;">đ</label></h5>
+                                        <div class="form-group row">
+                                            <div class="col-sm-9">
+                                                <h5><label class="control-label col-md-12"><label>Tổng tiền thanh toán:</label></label></h5>
+                                            </div>
+                                            <div class="col-sm-3">
+                                                <h5><label style="color:red;" id="textTotalMoney"></label><label style="margin-left: 5px;color:red;">đ</label></h5>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
-                            </div>
-                            <div class="modal-footer">
-                                <button type="submit" class="btn btn-sm btn-success" id="cpCopyBtn"><i class="fa fa-check" aria-hidden="true"></i> Đặt hàng</button>
-                                <button type="button" class="btn btn-sm btn-default btn-dimiss-modal" id="btnCloseModal">
-                                    <i class="fa fa-times"></i> Đóng
-                                </button>
+                                <div class="modal-footer">
+                                    <button type="submit" class="btn btn-sm btn-success" id="cpCopyBtn"><i class="fa fa-check" aria-hidden="true"></i> Đặt hàng</button>
+                                    <button type="button" class="btn btn-sm btn-default btn-dimiss-modal" id="btnCloseModal">
+                                        <i class="fa fa-times"></i> Đóng
+                                    </button>
+                                </div>
                             </div>
                         </div>
+                    </div>
 
                 </form>
             </div>

@@ -282,7 +282,7 @@ GProject.Data.DomainClass.Brand, EvaluateCommentDTO, decimal, int, Customer>
                                                 </a>
                                             }
                                         }
-                                        
+
                                     </div>
                                 </div>
                             </div>
@@ -480,13 +480,13 @@ GProject.Data.DomainClass.Brand, EvaluateCommentDTO, decimal, int, Customer>
                                             @{
                                                 int PaymentType = 0;
                                             }
-                                            @Html.DropDownList("PaymentType",new[]
-                                            {
+                                            @Html.DropDownList("PaymentType", new[]
+                                                     {
                                             new SelectListItem{Text="Thanh toán khi nhận hàng", Value="0", Selected=
                                             (PaymentType== 0)},
                                             new SelectListItem{Text="Thanh toán khi đặt hàng", Value="1", Selected=
                                             (PaymentType== 1)},
-                                            }, new { @name = "PaymentType",  @id = "PaymentType", @class="searchText form-control select"})
+                                            }, new { @name = "PaymentType", @id = "PaymentType", @class = "searchText form-control select" })
                                         </div>
                                     </div>
                                 </div>
@@ -1132,3 +1132,4 @@ GProject.Data.DomainClass.Brand, EvaluateCommentDTO, decimal, int, Customer>
             SCRate();
         });
     </script>
+</div>
