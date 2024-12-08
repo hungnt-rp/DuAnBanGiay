@@ -1,20 +1,25 @@
-﻿using Microsoft.AspNetCore.Authentication.Cookies;
-using Microsoft.AspNetCore.Authentication;
-using Microsoft.AspNetCore.Mvc;
-using System.Security.Claims;
-using static Microsoft.EntityFrameworkCore.DbLoggerCategory.Database;
-using Microsoft.AspNetCore.Authorization;
-using GProject.WebApplication.Models;
-using GProject.WebApplication.Helpers;
-using GProject.Data.DomainClass;
-using Microsoft.AspNetCore.Identity;
-using Microsoft.AspNetCore.Mvc.Rendering;
-using Newtonsoft.Json;
+﻿using System.Net;
 using System.Net.Mail;
-using System.Net;
+using System.Security.Claims;
+
+using GProject.Data.DomainClass;
+using GProject.WebApplication.Helpers;
+using GProject.WebApplication.Models;
 using GProject.WebApplication.Services;
+
+using Microsoft.AspNetCore.Authentication;
+using Microsoft.AspNetCore.Authentication.Cookies;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Rendering;
+
+using Newtonsoft.Json;
+
 using Twilio.TwiML.Messaging;
+
+using static Microsoft.EntityFrameworkCore.DbLoggerCategory.Database;
 
 namespace GProject.WebApplication.Controllers
 {
@@ -41,7 +46,7 @@ namespace GProject.WebApplication.Controllers
             return View();
         }
 
-		[HttpPost]
+        [HttpPost]
         public async Task<IActionResult> Login(UserInfoDTO user, string returnUrl = null)
         {
             try
@@ -75,13 +80,13 @@ namespace GProject.WebApplication.Controllers
                     }
                     var claimsIdentity = new ClaimsIdentity(claims, CookieAuthenticationDefaults.AuthenticationScheme);
                     var claimsPrincipal = new ClaimsPrincipal(claimsIdentity);
-                    await HttpContext.SignInAsync(claimsPrincipal);                   
+                    await HttpContext.SignInAsync(claimsPrincipal);
                     if (!string.IsNullOrEmpty(returnUrl) && Url.IsLocalUrl(returnUrl) && !returnUrl.NullToString().Contains("Account"))
                     {
                         return Redirect(returnUrl);
                     }
                     else
-                    {                       
+                    {
                         return RedirectToAction("Index", "Dashboard");
                     }
                 }
@@ -105,7 +110,7 @@ namespace GProject.WebApplication.Controllers
                     }
                     else
                     {
-						return RedirectToAction("Index", "Product");
+                        return RedirectToAction("Index", "Product");
                     }
                 }
                 HttpContext.Session.SetString("mess", "Failed");
@@ -127,7 +132,7 @@ namespace GProject.WebApplication.Controllers
         [GProject.WebApplication.Services.Authorize]
         public async Task<IActionResult> Logout()
         {
-			await HttpContext.SignOutAsync(IdentityConstants.ApplicationScheme);
+            await HttpContext.SignOutAsync(IdentityConstants.ApplicationScheme);
             HttpContext.Session.Remove("userLogin");
             HttpContext.Session.Remove("myRole");
             return Redirect("/");
@@ -150,59 +155,59 @@ namespace GProject.WebApplication.Controllers
         [HttpGet]
         public async Task<IActionResult> ExternalLoginCallback(string returnUrl = null, string remoteError = null)
         {
-			if (remoteError != null)
-			{
-				ModelState.AddModelError(string.Empty, $"Error from external provider: {remoteError}");
-				return RedirectToAction(nameof(Login));
-			}
+            if (remoteError != null)
+            {
+                ModelState.AddModelError(string.Empty, $"Error from external provider: {remoteError}");
+                return RedirectToAction(nameof(Login));
+            }
 
-			var info = await HttpContext.AuthenticateAsync(IdentityConstants.ExternalScheme);
-			var claims = info.Principal.Claims.ToList();
-			// Lấy thông tin người dùng từ Google
-			var userName = claims.FirstOrDefault(c => c.Type == ClaimTypes.Name)?.Value;
-			var userEmail = claims.FirstOrDefault(c => c.Type == ClaimTypes.Email)?.Value;
+            var info = await HttpContext.AuthenticateAsync(IdentityConstants.ExternalScheme);
+            var claims = info.Principal.Claims.ToList();
+            // Lấy thông tin người dùng từ Google
+            var userName = claims.FirstOrDefault(c => c.Type == ClaimTypes.Name)?.Value;
+            var userEmail = claims.FirstOrDefault(c => c.Type == ClaimTypes.Email)?.Value;
 
-			var lstCustomer = await Commons.GetAll<Customer>(String.Concat(Commons.mylocalhost, "Customer/get-all-Customer"));
+            var lstCustomer = await Commons.GetAll<Customer>(String.Concat(Commons.mylocalhost, "Customer/get-all-Customer"));
             var existCus = lstCustomer.FirstOrDefault(c => c.Email.ToLower() == info.Principal.FindFirstValue(ClaimTypes.Email).ToLower());
             if (existCus == null)
             {
-				existCus = new Customer()
-				{
-					Id = Guid.NewGuid(),
-					Name = info.Principal.FindFirstValue(ClaimTypes.Name),
-					Email = info.Principal.FindFirstValue(ClaimTypes.Email),
-					CustomerId = Commons.RandomString(15),
-					Password = "123456",
-					CreateDate = DateTime.Now,
-					DateOfBirth = DateTime.Now,
-					PhoneNumber = "",
-					Sex = 0,
-					Address = "",
-					Status = 1,
-					Description = "",
-					GoogleId = "",
-					Image = "_customer.png"
-				};
-				//-- Gửi request cho api sử lí
-				bool result = await Commons.Add_or_UpdateAsync(existCus, Commons.mylocalhost + "Customer/add-Customer");
-				if (!result)
-				{
-					return RedirectToAction("Login", "Account", new { returnUrl = returnUrl });
-				}
+                existCus = new Customer()
+                {
+                    Id = Guid.NewGuid(),
+                    Name = info.Principal.FindFirstValue(ClaimTypes.Name),
+                    Email = info.Principal.FindFirstValue(ClaimTypes.Email),
+                    CustomerId = Commons.RandomString(15),
+                    Password = "123456",
+                    CreateDate = DateTime.Now,
+                    DateOfBirth = DateTime.Now,
+                    PhoneNumber = "",
+                    Sex = 0,
+                    Address = "",
+                    Status = 1,
+                    Description = "",
+                    GoogleId = "",
+                    Image = "_customer.png"
+                };
+                //-- Gửi request cho api sử lí
+                bool result = await Commons.Add_or_UpdateAsync(existCus, Commons.mylocalhost + "Customer/add-Customer");
+                if (!result)
+                {
+                    return RedirectToAction("Login", "Account", new { returnUrl = returnUrl });
+                }
             }
-			var claimsIdentity = new ClaimsIdentity(claims, CookieAuthenticationDefaults.AuthenticationScheme);
-			var claimsPrincipal = new ClaimsPrincipal(claimsIdentity);
-			await HttpContext.SignInAsync(claimsPrincipal);
-			Commons.setObjectAsJson(HttpContext.Session, "userLogin", existCus);
-			if (!string.IsNullOrEmpty(returnUrl) && Url.IsLocalUrl(returnUrl) && !returnUrl.NullToString().Contains("Account"))
-			{
-				return Redirect(returnUrl);
-			}
-			else
-			{
-				return RedirectToAction("Index", "Product");
-			}
-		}
+            var claimsIdentity = new ClaimsIdentity(claims, CookieAuthenticationDefaults.AuthenticationScheme);
+            var claimsPrincipal = new ClaimsPrincipal(claimsIdentity);
+            await HttpContext.SignInAsync(claimsPrincipal);
+            Commons.setObjectAsJson(HttpContext.Session, "userLogin", existCus);
+            if (!string.IsNullOrEmpty(returnUrl) && Url.IsLocalUrl(returnUrl) && !returnUrl.NullToString().Contains("Account"))
+            {
+                return Redirect(returnUrl);
+            }
+            else
+            {
+                return RedirectToAction("Index", "Product");
+            }
+        }
 
         private IActionResult RedirectToLocal(string returnUrl)
         {
@@ -295,7 +300,7 @@ namespace GProject.WebApplication.Controllers
                 var lstObjs = await Commons.GetAll<Customer>(String.Concat(Commons.mylocalhost, "Customer/get-all-Customer"));
                 var employees = await Commons.GetAll<Employee>(String.Concat(Commons.mylocalhost, "Employee/get-all-Employee"));
 
-                var existNameCustomer = lstObjs.Any(x => x.PhoneNumber == PhoneNumber );
+                var existNameCustomer = lstObjs.Any(x => x.PhoneNumber == PhoneNumber);
                 var existNameEmployee = employees.Any(x => x.PhoneNumber == PhoneNumber);
 
                 if (!existNameCustomer && !existNameEmployee)

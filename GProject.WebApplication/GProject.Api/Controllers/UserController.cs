@@ -1,16 +1,19 @@
-﻿using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Mvc;
-using GProject.Data.DomainClass;
+﻿using System;
 using System.Collections.Generic;
+using System.Drawing;
+using System.Linq;
+using System.Security.Claims;
+
 using GProject.Api.MyServices.IServices;
 using GProject.Api.MyServices.Services;
-using System;
-using System.Linq;
-using System.Drawing;
-using Microsoft.AspNetCore.Authentication.Cookies;
+using GProject.Data.DomainClass;
+
 using Microsoft.AspNetCore.Authentication;
+using Microsoft.AspNetCore.Authentication.Cookies;
+using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Mvc;
+
 using static Microsoft.EntityFrameworkCore.DbLoggerCategory.Database;
-using System.Security.Claims;
 
 namespace GProject.Api.Controllers
 {

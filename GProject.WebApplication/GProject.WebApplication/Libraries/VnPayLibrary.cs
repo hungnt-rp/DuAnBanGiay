@@ -1,8 +1,9 @@
 ﻿using System.Globalization;
-using System.Net.Sockets;
 using System.Net;
+using System.Net.Sockets;
 using System.Security.Cryptography;
 using System.Text;
+
 using GProject.WebApplication.Models.Payments;
 
 namespace GProject.WebApplication.Libraries
@@ -137,6 +138,22 @@ namespace GProject.WebApplication.Libraries
             var keyBytes = Encoding.UTF8.GetBytes(key);
             var inputBytes = Encoding.UTF8.GetBytes(inputData);
             using (var hmac = new HMACSHA512(keyBytes))
+            {
+                var hashValue = hmac.ComputeHash(inputBytes);
+                foreach (var theByte in hashValue)
+                {
+                    hash.Append(theByte.ToString("x2"));
+                }
+            }
+
+            return hash.ToString();
+        }
+        private string HmacSha256(string key, string inputData)
+        {
+            var hash = new StringBuilder();
+            var keyBytes = Encoding.UTF8.GetBytes(key);
+            var inputBytes = Encoding.UTF8.GetBytes(inputData);
+            using (var hmac = new HMACSHA256(keyBytes))
             {
                 var hashValue = hmac.ComputeHash(inputBytes);
                 foreach (var theByte in hashValue)
