@@ -593,7 +593,7 @@ namespace GProject.WebApplication.Controllers
             {
                 HttpContext.Session.SetString("mess", "Failed");
             }
-            return RedirectToAction("ForgotPassword", "Account");
+            return RedirectToAction("Login", "Account");
         }
 
         private string GenerateRandomCode(int length)
@@ -608,8 +608,8 @@ namespace GProject.WebApplication.Controllers
         {
             try
             {
-                string fromEmail = "hungntph17579@fpt.edu.vn";
-                string password = "rzzkasitfwitfxhi";
+                string fromEmail = "kieunvph14806@fpt.edu.vn";
+                string password = "hqirlfseicgwodlw";
                 MailMessage message = new MailMessage();
                 message.From = new MailAddress(fromEmail);
                 message.Subject = subject;

@@ -26,7 +26,7 @@ namespace GProject.Data.Context
             //            optionsBuilder.UseSqlServer(@"Data Source=HP\SQLEXPRESS;Initial Catalog=DB_Du_An_Ban_Giay;Integrated Security=True");
             //            //optionsBuilder.UseSqlServer(@"Data Source=DESKTOP-CAAAC2V;Initial Catalog=DB_Du_An;Integrated Security=True");
             //=======
-            optionsBuilder.UseSqlServer(@"Data Source=desktop-0l24d7n;Initial Catalog=DB_Du_An_Ban_Giay;Trusted_Connection=True;TrustServerCertificate=True;");
+            optionsBuilder.UseSqlServer(@"Data Source=desktop-8q2k3rt;Initial Catalog=DB_Du_An_Ban_Giay;Trusted_Connection=True;TrustServerCertificate=True;");
 
             //>>>>>>> Stashed changes
 
